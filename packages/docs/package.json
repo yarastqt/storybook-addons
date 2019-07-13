@@ -1,0 +1,10 @@
+{
+  "name": "@storybook-addons/docs",
+  "version": "0.0.1-alpha.0",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "keywords": ["storybook", "docs", "documentation"],
+  "author": "Eugene Tropin <yarastqt@gmail.com>",
+  "license": "MIT"
+}
