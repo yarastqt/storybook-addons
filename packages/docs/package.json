@@ -17,7 +17,14 @@
   "scripts": {
     "test": "exit 0"
   },
-  "keywords": ["storybook", "docs", "documentation"],
-  "author": "Eugene Tropin <yarastqt@gmail.com>",
-  "license": "MIT"
+  "dependencies": {
+    "@storybook/addons": "^5.1.9",
+    "@storybook/api": "^5.1.9"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.23"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6"
+  }
 }
