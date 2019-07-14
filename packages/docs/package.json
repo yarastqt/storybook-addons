@@ -1,6 +1,19 @@
 {
   "name": "@storybook-addons/docs",
   "version": "0.0.1-alpha.0",
+  "keywords": [
+    "storybook",
+    "docs",
+    "addon",
+    "documentation"
+  ],
+  "author": "Eugene Tropin <yarastqt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yarastqt/storybook-addons/issues"
+  },
+  "repository": "https://github.com/yarastqt/storybook-addons",
+  "homepage": "https://github.com/yarastqt/storybook-addons/tree/master/packages/docs",
   "scripts": {
     "test": "exit 0"
   },
