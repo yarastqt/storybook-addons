@@ -13,8 +13,7 @@ export const withDocs = (options: WithDocsOptions) => makeDecorator({
   parameterName: 'docs',
   wrapper: (getStory: StoryGetter, context: StoryContext) => {
     if (!registerCacheMap.has(context.kind)) {
-      const api = addons.getChannel()
-      api.emit(ADD_README, options.readme)
+      addons.getChannel().emit(ADD_README, options.readme)
       registerCacheMap.set(context.kind, true)
     }
     return getStory(context)
