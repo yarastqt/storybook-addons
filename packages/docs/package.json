@@ -21,7 +21,10 @@
   "main": "./dist/index.js",
   "dependencies": {
     "@storybook/addons": "^5.1.9",
-    "@storybook/api": "^5.1.9"
+    "@storybook/api": "^5.1.9",
+    "remark-parse": "^6.0.3",
+    "remark-react": "^5.0.1",
+    "unified": "^8.2.0"
   },
   "devDependencies": {
     "@types/react": "^16.8.23"
