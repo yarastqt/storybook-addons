@@ -18,6 +18,7 @@
     "test": "exit 0",
     "build": "tsc"
   },
+  "main": "./dist/index.js",
   "dependencies": {
     "@storybook/addons": "^5.1.9",
     "@storybook/api": "^5.1.9"
