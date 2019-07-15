@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, SyntheticEvent, useCallback } from 'react'
 import styled from '@emotion/styled'
 
 const Frame = styled.iframe`
@@ -11,13 +11,14 @@ export type ExampleFrameProps = {
 }
 
 export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId }) => {
-  // TODO: add event type.
-  const onLoad = useCallback((event: any) => {
-    const target = event.target
+  const onLoad = useCallback((event: SyntheticEvent<HTMLIFrameElement>) => {
+    const target = event.target as HTMLIFrameElement
     setTimeout(() => {
-      // Fix iframe height after load.
-      target.style.height = `${target.contentWindow.document.body.scrollHeight}px`
-      target.contentWindow.document.body.style.margin = 0
+      if (target.contentWindow !== null) {
+        // Fix iframe height after load.
+        target.style.height = `${target.contentWindow.document.body.scrollHeight}px`
+        target.contentWindow.document.body.style.margin = '0'
+      }
     }, 32)
   }, [])
 
