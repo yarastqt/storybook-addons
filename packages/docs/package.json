@@ -20,10 +20,13 @@
   },
   "main": "./dist/index.js",
   "dependencies": {
+    "@emotion/styled": "^10.0.14",
     "@storybook/addons": "^5.1.9",
     "@storybook/api": "^5.1.9",
+    "remark-autolink-headings": "^5.2.1",
     "remark-parse": "^6.0.3",
     "remark-react": "^5.0.1",
+    "remark-slug": "^5.1.2",
     "unified": "^8.2.0"
   },
   "devDependencies": {
