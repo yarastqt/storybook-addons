@@ -7,7 +7,7 @@ const Frame = styled.iframe`
 `
 
 export type ExampleFrameProps = {
-  storyId: boolean
+  storyId: string
 }
 
 export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId }) => {
