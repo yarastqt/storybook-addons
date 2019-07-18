@@ -16,7 +16,8 @@
   "homepage": "https://github.com/yarastqt/storybook-addons/tree/master/packages/docs",
   "scripts": {
     "test": "exit 0",
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "main": "./dist/index.js",
   "dependencies": {
