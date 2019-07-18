@@ -61,14 +61,21 @@ const NavigationLink = styled.a``
 
 const remarkReactComponents = {
   p: (props: any) => {
-    if (props.children[0].match(/{{%frame:.+.%}}/)) {
-      const content = props.children[0].match(/{{%(.+.)%}}/)
+    if (props.children[0].match(/{{%frame::.+.%}}/)) {
+      const content = props.children[0].match(/{{%frame::(.+.)%}}/)
       if (content !== null) {
-        const [platform, storyId] = content[1].split(/:/)
+        // TODO: Add local and global platform toggler (with context).
         return (
           <Example>
-            <span>{platform}</span>
-            <ExampleFrame storyId={storyId} />
+            {content[1].split(/\|/).map((chunk: string) => {
+              const [platform, storyId] = chunk.split(/\:/)
+              return (
+                <>
+                  <span>{platform}</span>
+                  <ExampleFrame storyId={storyId} />
+                </>
+              )
+            })}
           </Example>
         )
       }
@@ -82,14 +89,14 @@ export type DocsPanelProps = {
   api: API
 }
 
-export const DocsPanel: FC<DocsPanelProps> = ({ api }) => {
+export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
   const [navigation, setNavigation] = useState<Link[]>([])
   const [content, setContent] = useState<ReactNode>(null)
 
   useEffect(() => {
-    const onAddReadme = (markdown: string) => {
+    const onAddReadme = ({ content }: any) => {
       const navigationList: Link[] = []
-      const content = unified()
+      const markdown = unified()
         .use(remark)
         .use(slug)
         .use(autolinkHeadings)
@@ -97,21 +104,18 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api }) => {
           onVisit: (link: Link) => navigationList.push(link),
         })
         .use(remark2react, { remarkReactComponents })
-        .processSync(markdown)
+        .processSync(content)
         .contents
-      setContent(content)
+      setContent(markdown)
       setNavigation(navigationList)
     }
-    if (content === null) {
-      // TODO: check content update after change story kinds.
-      api.on(ADD_README, onAddReadme)
-    }
+    api.on(ADD_README, onAddReadme)
     return () => {
       api.off(ADD_README, onAddReadme)
     }
-  }, [content])
+  })
 
-  return (
+  return active ? (
     <Markdown>
       <Content>
         {content}
@@ -128,5 +132,5 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api }) => {
         </NavigationList>
       </Navigation>
     </Markdown>
-  )
+  ) : null
 }

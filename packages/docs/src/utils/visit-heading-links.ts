@@ -13,6 +13,7 @@ export const visitHeadingLinks = (options: VisitHeadingLinksOptions) => (ast: an
     .filter((node: any) => node.type === 'heading')
     .forEach((node: any) => {
       if (options.onVisit !== undefined) {
+        // TODO: add levels for first two levels (configurable).
         if (node.children[0] !== undefined && node.children[1] !== undefined) {
           options.onVisit({
             url: node.children[0].url,
