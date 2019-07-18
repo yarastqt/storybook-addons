@@ -9,8 +9,6 @@ export type WithDocsOptions = {
   }
 }
 
-const registerCacheMap = new Map<string, boolean>()
-
 const injectMarkdownPlaceholders = (content: string, placeholders: Record<string, string> = {}) => {
   return content.replace(/{{%inject::(.+.)%}}/g, (match: string, key: string) => {
     if (placeholders[key] !== undefined) {
@@ -20,19 +18,31 @@ const injectMarkdownPlaceholders = (content: string, placeholders: Record<string
   })
 }
 
+let prevKind = ''
+
+const shouldUpdateRender = (kind: string) => {
+  if (kind !== prevKind) {
+    prevKind = kind
+    return true
+  }
+  return false
+}
+
 export const withDocs = ({ readme }: WithDocsOptions) => makeDecorator({
   name: 'withDocs',
   parameterName: 'docs',
   wrapper: (getStory: StoryGetter, context: StoryContext) => {
-    if (!registerCacheMap.has(context.kind)) {
+    const isCanvasView = location.href.match(/&embeded=true/) === null
+    const api = addons.getChannel()
+
+    if (isCanvasView && shouldUpdateRender(context.kind)) {
       if (readme !== undefined) {
-        addons.getChannel().emit(
-          ADD_README,
-          injectMarkdownPlaceholders(readme.content, readme.placeholders),
-        )
-        registerCacheMap.set(context.kind, true)
+        const content = injectMarkdownPlaceholders(readme.content, readme.placeholders)
+        // FIXME: context not have id property.
+        api.emit(ADD_README, { content })
       }
     }
+
     return getStory(context)
   },
 })
