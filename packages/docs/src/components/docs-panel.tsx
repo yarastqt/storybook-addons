@@ -9,7 +9,7 @@ import styled from '@emotion/styled'
 
 import { visitHeadingLinks, Link } from '../utils/visit-heading-links'
 import { ADD_README } from '../constants'
-import { ExampleFrame } from './example-frame'
+import { ExampleMeta, Example } from './example'
 
 const Markdown = styled.div`
   display: flex;
@@ -35,14 +35,6 @@ const Content = styled.div`
   width: 750px;
 `
 
-const Example = styled.div`
-  box-shadow: rgba(0, 0, 0, .05) 0px 1px 3px 0px;
-  border-radius: 3px;
-  background: #fff;
-  border: 1px solid #f3f4f6;
-  padding: 30px 20px;
-`
-
 const Navigation = styled.div`
   margin-left: 24px;
 `
@@ -61,22 +53,15 @@ const NavigationLink = styled.a``
 
 const remarkReactComponents = {
   p: (props: any) => {
-    if (props.children[0].match(/{{%frame::.+.%}}/)) {
-      const content = props.children[0].match(/{{%frame::(.+.)%}}/)
+    if (props.children[0].match(/{{%story::.+.%}}/)) {
+      const content = props.children[0].match(/{{%story::(.+.)%}}/)
       if (content !== null) {
-        // TODO: Add local and global platform toggler (with context).
+        const examples: ExampleMeta[] = content[1]
+          .split(/\|/)
+          .map((chunk: string) => chunk.split(/\:/))
+          .map(([platform, storyId]: string[]) => ({ platform, storyId }))
         return (
-          <Example>
-            {content[1].split(/\|/).map((chunk: string) => {
-              const [platform, storyId] = chunk.split(/\:/)
-              return (
-                <>
-                  <span>{platform}</span>
-                  <ExampleFrame storyId={storyId} />
-                </>
-              )
-            })}
-          </Example>
+          <Example examples={examples} />
         )
       }
     }

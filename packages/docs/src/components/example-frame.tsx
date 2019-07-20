@@ -8,9 +8,14 @@ const Frame = styled.iframe`
 
 export type ExampleFrameProps = {
   storyId: string
+  visible: boolean
 }
 
-export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId }) => {
+export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId, visible }) => {
+  if (!visible) {
+    return null
+  }
+
   const onLoad = useCallback((event: SyntheticEvent<HTMLIFrameElement>) => {
     const target = event.target as HTMLIFrameElement
     setTimeout(() => {
