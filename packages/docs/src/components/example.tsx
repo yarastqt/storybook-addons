@@ -4,10 +4,10 @@ import styled from '@emotion/styled'
 import { ExampleFrame } from './example-frame'
 
 const Container = styled.div`
-  box-shadow: rgba(0, 0, 0, .05) 0px 1px 3px 0px;
-  border-radius: 3px;
+  border-radius: 4px;
   background: #fff;
-  border: 1px solid #f3f4f6;
+  border: 2px solid rgba(0,0,0,.05);
+  box-sizing: border-box;
 `
 
 const Tabs = styled.div`
@@ -26,9 +26,14 @@ const Tab = styled.div<TabProps>`
   align-items: center;
   cursor: pointer;
   border-right: 1px solid rgba(0,0,0,0.05);
+  color: #999;
   ${props => props.active && `
-    color: green;
+    color: #000;
   `}
+
+  &:hover {
+    color: #000;
+  }
 `
 
 type ContentProps = {

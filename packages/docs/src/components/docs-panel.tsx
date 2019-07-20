@@ -12,10 +12,58 @@ import { ADD_README } from '../constants'
 import { ExampleMeta, Example } from './example'
 
 const Markdown = styled.div`
+  --text-color: #000;
+  --code-color: hsla(0,0%,100%,0.9);
+  --code-background: #222;
+  --code-inline-background: rgba(255,204,0,0.15);
+  --text-size: 18px;
+  --text-line-height: 28px;
+  --h1-size: 56px;
+  --h2-size: 28px;
+  --h3-size: 20px;
+  --code-size: 15px;
+  --text-small: 16px;
+  --h1-family: "YS Display",sans-serif;
+  --code-family: "Roboto Mono",monospace;
+
   display: flex;
   width: 960px;
   margin: 0 auto;
   padding: 20px 0;
+
+  h1 {
+    padding-bottom: .5em;
+    font-family: var(--h1-family);
+    font-size: var(--h1-size);
+    font-weight: 100;
+  }
+
+  h2 {
+    font-size: var(--h2-size);
+    margin-top: 52px;
+    margin-bottom: 24px;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 26px;
+    font-size: var(--text-size);
+    line-height: var(--text-line-height);
+    hyphens: auto;
+    color: var(--text-color);
+  }
+
+  ul, ol {
+    margin-top: 0;
+    margin-bottom: 32px;
+    padding-left: 16px;
+  }
+
+  li {
+    font-size: var(--text-size);
+    line-height: var(--text-line-height);
+    counter-increment: counter;
+  }
 
   h1 a,
   h2 a,
