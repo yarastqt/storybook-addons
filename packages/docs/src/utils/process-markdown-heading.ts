@@ -3,6 +3,7 @@ const SYMBOL_REGEXP = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|
 const WHITESPACE_REGEXP = /\s/g
 
 export type Link = {
+  level: number
   url: string
   text: string
 }
@@ -26,7 +27,7 @@ export const processMarkdownHeading = ({ markdown, onVisit }: ProcessMarkdownHea
     const url = `#${id}`
 
     if (onVisit !== undefined) {
-      onVisit({ url, text: heading })
+      onVisit({ level: level.length, url, text: heading })
     }
 
     markdown = markdown
