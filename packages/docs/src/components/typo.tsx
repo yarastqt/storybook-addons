@@ -80,4 +80,13 @@ export const typo = css`
     background: rgba(255,204,0,.15);
     box-sizing: border-box;
   }
+
+  a {
+    color: #1a0dab;
+    text-decoration: none;
+
+    &:hover {
+      color: #d00;
+    }
+  }
 `
