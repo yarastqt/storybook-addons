@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from 'react'
 import { API } from '@storybook/api'
 import styled from '@emotion/styled'
-import Highlight, { defaultProps } from 'prism-react-renderer'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown/with-html'
 
 import { Link, processMarkdownHeading } from '../utils/process-markdown-heading'
 import { ADD_README } from '../constants'
 import { ExampleMeta, Example } from './example'
+import { CodeHighlighter } from './code-highlighter'
 
 const Markdown = styled.div`
   --text-color: #000;
@@ -102,21 +102,7 @@ export type DocsPanelProps = {
 }
 
 const ReactMarkdownRenderers = {
-  code: (props: any) => (
-    <Highlight {...defaultProps} code={props.value} language={props.language}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={style}>
-          {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
-        </pre>
-      )}
-    </Highlight>
-  ),
+  code: CodeHighlighter,
   paragraph: (props: any) => {
     if (props.children[0].props.value.match(/{{%story::.+.%}}/)) {
       const content = props.children[0].props.value.match(/{{%story::(.+.)%}}/)
