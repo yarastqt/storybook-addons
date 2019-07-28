@@ -1,6 +1,9 @@
 {
   "name": "storybook-addons",
   "private": true,
+  "scripts": {
+    "publish:canary": "lerna publish --canary --npm-tag canary --no-git-tag-version"
+  },
   "devDependencies": {
     "lerna": "^3.14.1",
     "typescript": "^3.5.3"
