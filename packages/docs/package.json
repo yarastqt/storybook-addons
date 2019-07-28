@@ -1,6 +1,9 @@
 {
   "name": "@storybook-addons/docs",
   "version": "0.0.1-alpha.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "storybook",
     "docs",
@@ -21,6 +24,7 @@
     "prepublishOnly": "npm run build"
   },
   "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "dependencies": {
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
