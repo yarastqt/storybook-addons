@@ -1,9 +1,6 @@
 {
   "name": "storybook-addons",
   "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "devDependencies": {
     "lerna": "^3.14.1",
     "typescript": "^3.5.3"
