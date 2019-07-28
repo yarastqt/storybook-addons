@@ -62,6 +62,22 @@ const Markdown = styled.div`
     counter-increment: counter;
   }
 
+  pre {
+    padding: 20px;
+    font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
+    font-size: var(--code-size);
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  blockquote {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 4px;
+    background: rgba(255,204,0,.15);
+    box-sizing: border-box;
+  }
+
   h1 a,
   h2 a,
   h3 a {
