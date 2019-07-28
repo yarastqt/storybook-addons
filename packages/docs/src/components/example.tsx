@@ -69,6 +69,7 @@ export const Example: FC<ExampleProps> = ({ examples }) => {
         <Tabs>
           {examples.map(({ platform }, index) => (
             <Tab
+              key={index}
               active={index === activeTab}
               onClick={onTabClick(index)}
             >
@@ -78,7 +79,7 @@ export const Example: FC<ExampleProps> = ({ examples }) => {
         </Tabs>
       )}
       {examples.map(({ storyId }, index) => (
-        <Content active={index === activeTab}>
+        <Content key={index} active={index === activeTab}>
           <ExampleFrame
             storyId={storyId}
             visible={index === activeTab}
