@@ -93,7 +93,11 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
     }
   })
 
-  return active ? (
+  if (!active) {
+    return null
+  }
+
+  return (
     <Markdown>
       <Content>
         <ReactMarkdown
@@ -114,5 +118,5 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
         </NavigationList>
       </Navigation>
     </Markdown>
-  ) : null
+  )
 }
