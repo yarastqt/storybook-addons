@@ -15,34 +15,54 @@ const Markdown = styled.div`
   --text-line-height: 28px;
   --code-size: 15px;
 
-  ${typo}
-
   display: flex;
   width: 960px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 24px 32px;
   color: var(--text-color);
 `
 
 const Content = styled.div`
   width: 750px;
+  flex: 1 0 auto;
+
+  ${typo}
+
+  > :first-child {
+    margin-top: 0;
+  }
 `
 
 const Navigation = styled.div`
   margin-left: 24px;
+  flex: 1 0 auto;
 `
 
 const NavigationList = styled.ul`
   border-left: 2px solid rgba(0, 0, 0, 0.05);
   padding-left: 24px;
   list-style: none;
+  font-size: 16px;
 `
 
-const NavigationItem = styled.li`
+type NavigationItemProps = {
+  level: number
+}
+
+const NavigationItem = styled.li<NavigationItemProps>`
   margin-bottom: 8px;
+  /* Skip first two levels for margin. */
+  margin-left: ${props => ((props.level - 2) * 20)}px;
 `
 
-const NavigationLink = styled.a``
+const NavigationLink = styled.a`
+  text-decoration: none;
+  color: #999;
+
+  &:hover {
+    color: #070;
+  }
+`
 
 export type DocsPanelProps = {
   active: boolean
@@ -83,7 +103,10 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
         onVisit: (link) => navigation.push(link),
       })
 
-      setContent({ content: processedContent, navigation })
+      setContent({
+        content: processedContent,
+        navigation: navigation.filter((link) => link.level > 1 && link.level < 4),
+      })
     }
 
     api.on(ADD_README, onAddReadme)
@@ -109,7 +132,7 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
       <Navigation>
         <NavigationList>
           {navigation.map((link, index) => (
-            <NavigationItem key={index}>
+            <NavigationItem key={index} level={link.level}>
               <NavigationLink href={link.url}>
                 {link.text}
               </NavigationLink>
