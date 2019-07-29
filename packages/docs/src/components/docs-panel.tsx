@@ -72,8 +72,9 @@ export type DocsPanelProps = {
 const ReactMarkdownRenderers = {
   code: CodeHighlighter,
   paragraph: (props: any) => {
-    if (props.children[0].props.value.match(/{{%story::.+.%}}/)) {
-      const content = props.children[0].props.value.match(/{{%story::(.+.)%}}/)
+    const { value } = props.children[0].props
+    if (value !== undefined && value.match(/{{%story::.+.%}}/)) {
+      const content = value.match(/{{%story::(.+.)%}}/)
       if (content !== null) {
         const examples: ExampleMeta[] = content[1]
           .split(/\|/)
