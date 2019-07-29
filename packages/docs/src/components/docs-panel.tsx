@@ -115,7 +115,7 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
     return () => {
       api.off(ADD_README, onAddReadme)
     }
-  })
+  }, [api])
 
   if (!active) {
     return null
