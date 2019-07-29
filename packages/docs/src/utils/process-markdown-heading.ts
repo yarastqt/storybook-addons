@@ -1,4 +1,4 @@
-const HEADING_REGEXP_GLOBAL = /^(#{1,5})\s([A-z].+)/gm
+const HEADING_REGEXP_GLOBAL = /^(#{1,5})\s([А-яA-z].+)/gm
 const SYMBOL_REGEXP = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~’]/g
 const WHITESPACE_REGEXP = /\s/g
 
