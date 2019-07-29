@@ -65,7 +65,7 @@ export const typo = css`
 
   pre {
     padding: 16px;
-    font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
+    font-family: var(--code-font);
     font-size: var(--code-size);
     border-radius: 4px;
     box-sizing: border-box;
@@ -79,6 +79,16 @@ export const typo = css`
     border-radius: 4px;
     background: rgba(255,204,0,.15);
     box-sizing: border-box;
+  }
+
+  code {
+    background-color: rgba(27, 31, 35, .05);
+    border-radius: 4px;
+    font-family: var(--code-font);
+    display: inline;
+    vertical-align: baseline;
+    font-size: 85%;
+    padding: 4px 8px;
   }
 
   a {

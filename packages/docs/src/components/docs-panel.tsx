@@ -11,9 +11,10 @@ import { typo } from './typo'
 
 const Markdown = styled.div`
   --text-color: #000;
-  --text-size: 18px;
+  --text-size: 16px;
   --text-line-height: 28px;
   --code-size: 15px;
+  --code-font: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
 
   display: flex;
   width: 960px;
@@ -35,14 +36,15 @@ const Content = styled.div`
 
 const Navigation = styled.div`
   margin-left: 24px;
-  flex: 1 0 auto;
+  flex: 1 0 240px;
 `
 
 const NavigationList = styled.ul`
   border-left: 2px solid rgba(0, 0, 0, 0.05);
   padding-left: 24px;
   list-style: none;
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 21px;
 `
 
 type NavigationItemProps = {
