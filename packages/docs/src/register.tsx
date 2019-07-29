@@ -11,8 +11,8 @@ addons.register(ADDON_ID, (api: API) => {
     type: types.TAB,
     // TODO: Get from config.
     title: 'Documentation',
-    route: ({ storyId }) => `/docs/${storyId}`,
-    match: ({ viewMode }) => viewMode === 'docs',
+    route: ({ storyId }) => `/docsx/${storyId}`,
+    match: ({ viewMode }) => viewMode === 'docsx',
     render: ({ active }) => <DocsPanel api={api} active={active} />,
   })
 })

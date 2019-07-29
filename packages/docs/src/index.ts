@@ -30,7 +30,7 @@ const shouldUpdateRender = (kind: string) => {
 
 export const withDocs = ({ readme }: WithDocsOptions) => makeDecorator({
   name: 'withDocs',
-  parameterName: 'docs',
+  parameterName: 'docsx',
   wrapper: (getStory: StoryGetter, context: StoryContext) => {
     const isCanvasView = location.href.match(/&embeded=true/) === null
     const api = addons.getChannel()
