@@ -123,6 +123,10 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
     return null
   }
 
+  if (content === '') {
+    return <div>No documentation content.</div>
+  }
+
   return (
     <Markdown>
       <Content>
