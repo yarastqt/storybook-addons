@@ -81,6 +81,14 @@ export const typo = css`
     box-sizing: border-box;
   }
 
+  blockquote > :last-child {
+    margin-bottom: 0;
+  }
+
+  blockquote > :first-child {
+    margin-top: 0;
+  }
+
   code {
     background-color: rgba(27, 31, 35, .05);
     border-radius: 4px;
