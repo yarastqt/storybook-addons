@@ -17,6 +17,7 @@ const Markdown = styled.div`
   --code-font: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
 
   display: flex;
+  align-items: flex-start;
   width: 960px;
   margin: 0 auto;
   padding: 24px 32px;
@@ -37,6 +38,8 @@ const Content = styled.div`
 const Navigation = styled.div`
   margin-left: 24px;
   flex: 1 0 240px;
+  position: sticky;
+  top: 0;
 `
 
 const NavigationList = styled.ul`
