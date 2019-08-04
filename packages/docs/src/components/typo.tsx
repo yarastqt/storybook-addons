@@ -64,7 +64,9 @@ export const typo = css`
   }
 
   pre {
+    position: relative;
     padding: 16px;
+    padding-right: 72px;
     font-family: var(--code-font);
     font-size: var(--code-size);
     border-radius: 4px;
