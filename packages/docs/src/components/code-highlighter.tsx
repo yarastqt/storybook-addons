@@ -1,5 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import Highlight, { defaultProps, Language } from 'prism-react-renderer'
+import copy from 'copy-to-clipboard'
+
+import { CopyButton } from './copy-button'
 
 const theme = {
   plain: {
@@ -68,18 +71,25 @@ export type CodeHighlighterType = {
 }
 
 // TODO: Add line highlight.
-export const CodeHighlighter: FC<CodeHighlighterType> = ({ value, language }) => (
-  <Highlight {...defaultProps} theme={theme} code={value} language={language}>
-    {({ className, style, tokens, getLineProps, getTokenProps }) => (
-      <pre className={className} style={style}>
-        {tokens.map((line, i) => (
-          <div {...getLineProps({ line, key: i })}>
-            {line.map((token, key) => (
-              <span {...getTokenProps({ token, key })} />
-            ))}
-          </div>
-        ))}
-      </pre>
-    )}
-  </Highlight>
-)
+export const CodeHighlighter: FC<CodeHighlighterType> = ({ value, language }) => {
+  const onCopyClick = useCallback(() => {
+    copy(value)
+  }, [value])
+
+  return (
+    <Highlight {...defaultProps} theme={theme} code={value} language={language}>
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre className={className} style={style}>
+          {tokens.map((line, i) => (
+            <div {...getLineProps({ line, key: i })}>
+              {line.map((token, key) => (
+                <span {...getTokenProps({ token, key })} />
+              ))}
+            </div>
+          ))}
+          <CopyButton onClick={onCopyClick} />
+        </pre>
+      )}
+    </Highlight>
+  )
+}

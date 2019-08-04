@@ -30,6 +30,7 @@
     "@emotion/styled": "^10.0.14",
     "@storybook/addons": "^5.1.9",
     "@storybook/api": "^5.1.9",
+    "copy-to-clipboard": "^3.2.0",
     "prism-react-renderer": "^0.1.7",
     "react-markdown": "^4.1.0"
   },
