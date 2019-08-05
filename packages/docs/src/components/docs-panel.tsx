@@ -16,12 +16,16 @@ const Markdown = styled.div`
   --code-size: 15px;
   --code-font: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
 
+  background-color: #fff;
+  color: var(--text-color);
+`
+
+const Wrapper = styled.div`
   display: flex;
   align-items: flex-start;
   width: 960px;
   margin: 0 auto;
   padding: 24px 32px;
-  color: var(--text-color);
 `
 
 const Content = styled.div`
@@ -132,24 +136,26 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
 
   return (
     <Markdown>
-      <Content>
-        <ReactMarkdown
-          escapeHtml={false}
-          source={content}
-          renderers={ReactMarkdownRenderers}
-        />
-      </Content>
-      <Navigation>
-        <NavigationList>
-          {navigation.map((link, index) => (
-            <NavigationItem key={index} level={link.level}>
-              <NavigationLink href={link.url}>
-                {link.text}
-              </NavigationLink>
-            </NavigationItem>
-          ))}
-        </NavigationList>
-      </Navigation>
+      <Wrapper>
+        <Content>
+          <ReactMarkdown
+            escapeHtml={false}
+            source={content}
+            renderers={ReactMarkdownRenderers}
+          />
+        </Content>
+        <Navigation>
+          <NavigationList>
+            {navigation.map((link, index) => (
+              <NavigationItem key={index} level={link.level}>
+                <NavigationLink href={link.url}>
+                  {link.text}
+                </NavigationLink>
+              </NavigationItem>
+            ))}
+          </NavigationList>
+        </Navigation>
+      </Wrapper>
     </Markdown>
   )
 }

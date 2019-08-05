@@ -81,6 +81,7 @@ export const typo = css`
     border-radius: 4px;
     background: rgba(255,204,0,.15);
     box-sizing: border-box;
+    line-height: var(--text-line-height);
   }
 
   blockquote > :last-child {
