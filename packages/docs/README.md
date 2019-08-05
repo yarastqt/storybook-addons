@@ -1,4 +1,4 @@
-# @storybook-addons/docs
+# @storybook-addons/docs &middot; [![npm (scoped)](https://img.shields.io/npm/v/@storybook-addons/docs.svg)](https://www.npmjs.com/package/@storybook-addons/docs)
 
 ## Install
 
