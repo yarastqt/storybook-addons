@@ -36,9 +36,9 @@ storiesOf('ComponentName', module)
 
 ```markdown
 <!-- single story -->
-{{%story::tabName:story-id%}}
+{{%story::story-id%}}
 
-<!-- multi stories -->
+<!-- multi stories with tab names -->
 {{%story::tabName:story-id|tabName:story-id%}}
 ```
 

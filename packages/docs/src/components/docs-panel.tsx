@@ -78,20 +78,29 @@ export type DocsPanelProps = {
   api: API
 }
 
+const STORY_REGEXP = /{{%story::(.+.)%}}/
+
 const ReactMarkdownRenderers = {
   code: CodeHighlighter,
   paragraph: (props: any) => {
     const { value } = props.children[0].props
-    if (value !== undefined && value.match(/{{%story::.+.%}}/)) {
-      const content = value.match(/{{%story::(.+.)%}}/)
-      if (content !== null) {
-        const examples: ExampleMeta[] = content[1]
-          .split(/\|/)
-          .map((chunk: string) => chunk.split(/\:/))
-          .map(([platform, storyId]: string[]) => ({ platform, storyId }))
-        return <Example examples={examples} />
-      }
+    const content = value.match(STORY_REGEXP)
+
+    if (value !== undefined && content !== null) {
+      const examples: ExampleMeta[] = content[1]
+        .split(/\|/)
+        .map((chunk: string) => {
+          const splittedChunk = chunk.split(/\:/)
+          return splittedChunk.length === 1
+            // Add unknown platform if not set.
+            ? ['Unknown', ...splittedChunk]
+            : splittedChunk
+        })
+        .map(([platform, storyId]: string[]) => ({ platform, storyId }))
+
+      return <Example examples={examples} />
     }
+
     return <p>{props.children}</p>
   },
 }
