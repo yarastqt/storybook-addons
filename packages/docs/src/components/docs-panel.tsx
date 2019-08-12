@@ -115,6 +115,15 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
     useState<DocsPanelContent>({ content: '', navigation: [] })
 
   useEffect(() => {
+    if (location.hash !== '') {
+      const element = document.querySelector(location.hash)
+      if (element !== null) {
+        element.scrollIntoView()
+      }
+    }
+  })
+
+  useEffect(() => {
     const onAddReadme = ({ content }: any) => {
       const navigation: Link[] = []
       const processedContent = processMarkdownHeading({
