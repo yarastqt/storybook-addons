@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, useRef, MutableRefObject, createRef } from 'react'
 import { API } from '@storybook/api'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
@@ -18,6 +18,13 @@ const Markdown = styled.div`
 
   background-color: #fff;
   color: var(--text-color);
+  /* Set position absolute for detect scroll inside container. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: scroll;
 `
 
 const Wrapper = styled.div`
@@ -111,8 +118,29 @@ type DocsPanelContent = {
 }
 
 export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
+  const rootRef = useRef<HTMLDivElement>(null)
+  const navigationLinkRefsMap = {}
   const [{ content, navigation }, setContent] =
     useState<DocsPanelContent>({ content: '', navigation: [] })
+
+  useEffect(() => {
+    const onRootScroll = () => {
+      console.log('>> do scroll')
+
+    }
+
+    if (rootRef.current !== null) {
+      console.log(navigationLinkRefsMap)
+      // TODO: Add throttle for scroll handler.
+      rootRef.current.addEventListener('scroll', onRootScroll)
+    }
+
+    return () => {
+      if (rootRef.current !== null) {
+        rootRef.current.removeEventListener('scroll', onRootScroll)
+      }
+    }
+  })
 
   useEffect(() => {
     const onAddReadme = ({ content }: any) => {
@@ -144,7 +172,7 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
   }
 
   return (
-    <Markdown>
+    <Markdown ref={rootRef}>
       <Wrapper>
         <Content>
           <ReactMarkdown
@@ -157,7 +185,7 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
           <NavigationList>
             {navigation.map((link, index) => (
               <NavigationItem key={index} level={link.level}>
-                <NavigationLink href={link.url}>
+                <NavigationLink href={link.url} ref={navigationLinkRefsMap[link.url] = createRef()}>
                   {link.text}
                 </NavigationLink>
               </NavigationItem>
