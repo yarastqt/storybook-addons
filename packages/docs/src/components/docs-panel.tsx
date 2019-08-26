@@ -84,21 +84,24 @@ const ReactMarkdownRenderers = {
   code: CodeHighlighter,
   paragraph: (props: any) => {
     const { value } = props.children[0].props
-    const content = value.match(STORY_REGEXP)
 
-    if (value !== undefined && content !== null) {
-      const examples: ExampleMeta[] = content[1]
-        .split(/\|/)
-        .map((chunk: string) => {
-          const splittedChunk = chunk.split(/\:/)
-          return splittedChunk.length === 1
-            // Add unknown platform if not set.
-            ? ['Unknown', ...splittedChunk]
-            : splittedChunk
-        })
-        .map(([platform, storyId]: string[]) => ({ platform, storyId }))
+    if (value !== undefined) {
+      const content = value.match(STORY_REGEXP)
 
-      return <Example examples={examples} />
+      if (content !== null) {
+        const examples: ExampleMeta[] = content[1]
+          .split(/\|/)
+          .map((chunk: string) => {
+            const splittedChunk = chunk.split(/\:/)
+            return splittedChunk.length === 1
+              // Add unknown platform if not set.
+              ? ['Unknown', ...splittedChunk]
+              : splittedChunk
+          })
+          .map(([platform, storyId]: string[]) => ({ platform, storyId }))
+
+        return <Example examples={examples} />
+      }
     }
 
     return <p>{props.children}</p>
