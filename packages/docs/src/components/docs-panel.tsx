@@ -119,7 +119,8 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
 
   useEffect(() => {
     if (location.hash !== '') {
-      const element = document.querySelector(location.hash)
+      const hash = decodeURIComponent(location.hash)
+      const element = document.querySelector(hash)
       if (element !== null) {
         element.scrollIntoView()
       }
