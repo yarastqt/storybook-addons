@@ -46,7 +46,7 @@ export const CopyButton: FC<CopyButtonProps> = ({ onClick }) => {
     <Button tabIndex={-1} onClick={onInternalClick}>
       <Text>{copyText}</Text>
       <Svg width="18px" height="18px" viewBox="0 0 13 15">
-        <g fill="#011627" stroke="#fff" fill-rule="nonzero" stroke-width="1">
+        <g fill="#011627" stroke="#fff" fillRule="nonzero" strokeWidth="1">
           <rect x="0.5" y="0.5" width="9" height="11" rx="1.5" />
           <rect x="3.5" y="3.5" width="9" height="11" rx="1.5" />
         </g>
