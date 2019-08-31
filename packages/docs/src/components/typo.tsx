@@ -1,7 +1,12 @@
 import { css } from '@emotion/core'
 
 export const typo = css`
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 600;
     line-height: 1.25;
     margin-bottom: 26px;
@@ -52,7 +57,8 @@ export const typo = css`
     line-height: var(--text-line-height);
   }
 
-  ul, ol {
+  ul,
+  ol {
     margin-top: 0;
     margin-bottom: 26px;
     padding-left: 30px;
@@ -79,7 +85,7 @@ export const typo = css`
     margin: 20px 0;
     padding: 16px;
     border-radius: 4px;
-    background: rgba(255,204,0,.15);
+    background: rgba(255, 204, 0, 0.15);
     box-sizing: border-box;
     line-height: var(--text-line-height);
   }
@@ -93,7 +99,7 @@ export const typo = css`
   }
 
   code {
-    background-color: rgba(27, 31, 35, .05);
+    background-color: rgba(27, 31, 35, 0.05);
     border-radius: 4px;
     font-family: var(--code-font);
     display: inline;

@@ -28,21 +28,22 @@ const shouldUpdateRender = (kind: string) => {
   return false
 }
 
-export const withDocs = ({ readme }: WithDocsOptions) => makeDecorator({
-  name: 'withDocs',
-  parameterName: 'docsx',
-  wrapper: (getStory: StoryGetter, context: StoryContext) => {
-    const isCanvasView = location.href.match(/&embeded=true/) === null
-    const api = addons.getChannel()
+export const withDocs = ({ readme }: WithDocsOptions) =>
+  makeDecorator({
+    name: 'withDocs',
+    parameterName: 'docsx',
+    wrapper: (getStory: StoryGetter, context: StoryContext) => {
+      const isCanvasView = window.location.href.match(/&embeded=true/) === null
+      const api = addons.getChannel()
 
-    if (isCanvasView && shouldUpdateRender(context.kind)) {
-      if (readme !== undefined) {
-        const content = injectMarkdownPlaceholders(readme.content, readme.placeholders)
-        // FIXME: context not have id property.
-        api.emit(ADD_README, { content })
+      if (isCanvasView && shouldUpdateRender(context.kind)) {
+        if (readme !== undefined) {
+          const content = injectMarkdownPlaceholders(readme.content, readme.placeholders)
+          // FIXME: context not have id property.
+          api.emit(ADD_README, { content })
+        }
       }
-    }
 
-    return getStory(context)
-  },
-})
+      return getStory(context)
+    },
+  })

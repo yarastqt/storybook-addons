@@ -11,6 +11,8 @@ export type ExampleFrameProps = {
   visible: boolean
 }
 
+const FRAME_TICK = 32
+
 export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId, visible }) => {
   if (!visible) {
     return null
@@ -24,13 +26,8 @@ export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId, visible }) => {
         target.style.height = `${target.contentWindow.document.body.scrollHeight}px`
         target.contentWindow.document.body.style.margin = '0'
       }
-    }, 32)
+    }, FRAME_TICK)
   }, [])
 
-  return (
-    <Frame
-      onLoad={onLoad}
-      src={`iframe.html?id=${storyId}&embeded=true`}
-    />
-  )
+  return <Frame onLoad={onLoad} src={`iframe.html?id=${storyId}&embeded=true`} />
 }

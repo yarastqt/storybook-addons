@@ -61,7 +61,7 @@ type NavigationItemProps = {
 const NavigationItem = styled.li<NavigationItemProps>`
   margin-bottom: 8px;
   /* Skip first two levels for margin. */
-  margin-left: ${props => ((props.level - 2) * 20)}px;
+  margin-left: ${(props) => (props.level - 2) * 20}px;
 `
 
 const NavigationLink = styled.a`
@@ -82,8 +82,8 @@ const STORY_REGEXP = /{{%story::(.+.)%}}/
 
 const ReactMarkdownRenderers = {
   code: CodeHighlighter,
-  paragraph: (props: any) => {
-    const { value } = props.children[0].props
+  paragraph: ({ children }: any) => {
+    const { value } = children[0].props
 
     if (value !== undefined) {
       const content = value.match(STORY_REGEXP)
@@ -92,10 +92,10 @@ const ReactMarkdownRenderers = {
         const examples: ExampleMeta[] = content[1]
           .split(/\|/)
           .map((chunk: string) => {
-            const splittedChunk = chunk.split(/\:/)
+            const splittedChunk = chunk.split(/:/)
             return splittedChunk.length === 1
-              // Add unknown platform if not set.
-              ? ['Unknown', ...splittedChunk]
+              ? // Add unknown platform if not set.
+                ['Unknown', ...splittedChunk]
               : splittedChunk
           })
           .map(([platform, storyId]: string[]) => ({ platform, storyId }))
@@ -104,22 +104,24 @@ const ReactMarkdownRenderers = {
       }
     }
 
-    return <p>{props.children}</p>
+    return <p>{children}</p>
   },
 }
 
 type DocsPanelContent = {
-  content: string,
-  navigation: Link[],
+  content: string
+  navigation: Link[]
 }
 
 export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
-  const [{ content, navigation }, setContent] =
-    useState<DocsPanelContent>({ content: '', navigation: [] })
+  const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
+    content: '',
+    navigation: [],
+  })
 
   useEffect(() => {
-    if (location.hash !== '') {
-      const hash = decodeURIComponent(location.hash)
+    if (window.location.hash !== '') {
+      const hash = decodeURIComponent(window.location.hash)
       const element = document.querySelector(hash)
       if (element !== null) {
         element.scrollIntoView()
@@ -128,7 +130,9 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
   })
 
   useEffect(() => {
+    // eslint-disable-next-line no-shadow
     const onAddReadme = ({ content }: any) => {
+      // eslint-disable-next-line no-shadow
       const navigation: Link[] = []
       const processedContent = processMarkdownHeading({
         markdown: content,
@@ -160,19 +164,13 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
     <Markdown>
       <Wrapper>
         <Content>
-          <ReactMarkdown
-            escapeHtml={false}
-            source={content}
-            renderers={ReactMarkdownRenderers}
-          />
+          <ReactMarkdown escapeHtml={false} source={content} renderers={ReactMarkdownRenderers} />
         </Content>
         <Navigation>
           <NavigationList>
-            {navigation.map((link, index) => (
-              <NavigationItem key={index} level={link.level}>
-                <NavigationLink href={link.url}>
-                  {link.text}
-                </NavigationLink>
+            {navigation.map((link) => (
+              <NavigationItem key={link.url} level={link.level}>
+                <NavigationLink href={link.url}>{link.text}</NavigationLink>
               </NavigationItem>
             ))}
           </NavigationList>
