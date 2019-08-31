@@ -15,7 +15,9 @@ type ProcessMarkdownHeadingOptions = {
 
 export const processMarkdownHeading = ({ markdown, onVisit }: ProcessMarkdownHeadingOptions) => {
   let executed: RegExpExecArray | null = null
+  let processedMarkdown = markdown
 
+  // eslint-disable-next-line no-cond-assign
   while ((executed = HEADING_REGEXP_GLOBAL.exec(markdown)) !== null) {
     const [rawHeading, level, heading] = executed
     const headingRegExp = new RegExp(`^${rawHeading}`, 'm')
@@ -30,9 +32,11 @@ export const processMarkdownHeading = ({ markdown, onVisit }: ProcessMarkdownHea
       onVisit({ level: level.length, url, text: heading })
     }
 
-    markdown = markdown
-      .replace(headingRegExp, `<${component} id="${id}"><a class="anchor" href="${url}"></a>${heading}</${component}>\n`)
+    processedMarkdown = markdown.replace(
+      headingRegExp,
+      `<${component} id="${id}"><a class="anchor" href="${url}"></a>${heading}</${component}>\n`,
+    )
   }
 
-  return markdown
+  return processedMarkdown
 }

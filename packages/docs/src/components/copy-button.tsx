@@ -13,7 +13,7 @@ const Button = styled.button`
   right: 16px;
 
   &:hover {
-    opacity: .5;
+    opacity: 0.5;
   }
 `
 
@@ -32,6 +32,8 @@ export type CopyButtonProps = {
   onClick: MouseEventHandler<HTMLButtonElement>
 }
 
+const TEXT_REVERSE_DURATION = 2000
+
 export const CopyButton: FC<CopyButtonProps> = ({ onClick }) => {
   const [copyText, setCopyText] = useState('Copy')
   const onInternalClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
@@ -39,7 +41,7 @@ export const CopyButton: FC<CopyButtonProps> = ({ onClick }) => {
     onClick(event)
     setTimeout(() => {
       setCopyText('Copy')
-    }, 2000)
+    }, TEXT_REVERSE_DURATION)
   }, [])
 
   return (
