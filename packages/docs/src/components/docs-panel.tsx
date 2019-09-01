@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, memo } from 'react'
 import { API } from '@storybook/api'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
@@ -113,7 +113,7 @@ type DocsPanelContent = {
   navigation: Link[]
 }
 
-export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
+export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
     content: '',
     navigation: [],
@@ -179,3 +179,5 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
     </Markdown>
   )
 }
+
+export const DocsPanel = memo(DocsPanelView)
