@@ -106,6 +106,26 @@ const ReactMarkdownRenderers = {
   },
 }
 
+const noContentReadme = `
+# Documentation not found
+
+Add decorator \`withDocs\` in your \`storiesOf\` for adding documentation:
+
+\`\`\`javascript
+import { withDocs } from '@storybook-addons/docs'
+import readme from './README.md'
+
+storiesOf('story-id', module)
+  .addDecorator(withDocs({
+    readme: {
+      content: readme
+    }
+  }))
+\`\`\`
+
+Full information about \`@storybook-addons/docs\` you can see at <a target="_blank" href="https://github.com/yarastqt/storybook-addons/tree/master/packages/docs#usage">usage</a> section.
+`
+
 type DocsPanelContent = {
   content?: string
   navigation: Link[]
@@ -156,7 +176,19 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   }
 
   if (content === undefined) {
-    return <div>No documentation content.</div>
+    return (
+      <Markdown>
+        <Wrapper>
+          <Content>
+            <ReactMarkdown
+              escapeHtml={false}
+              source={noContentReadme}
+              renderers={ReactMarkdownRenderers}
+            />
+          </Content>
+        </Wrapper>
+      </Markdown>
+    )
   }
 
   return (
@@ -179,4 +211,5 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   )
 }
 
+// TODO: Use memo inplace.
 export const DocsPanel = memo(DocsPanelView)
