@@ -1,5 +1,7 @@
 import addons, { StoryGetter, StoryContext, makeDecorator } from '@storybook/addons'
+import { STORY_CHANGED } from '@storybook/core-events'
 
+import { injectMarkdownPlaceholders } from './utils/inject-markdown-placeholders'
 import { ADD_README } from './constants'
 
 export type WithDocsOptions = {
@@ -9,24 +11,8 @@ export type WithDocsOptions = {
   }
 }
 
-const injectMarkdownPlaceholders = (content: string, placeholders: Record<string, string> = {}) => {
-  return content.replace(/{{%inject::(.+.)%}}/g, (match: string, key: string) => {
-    if (placeholders[key] !== undefined) {
-      return placeholders[key]
-    }
-    return ''
-  })
-}
-
-let prevKind = ''
-
-const shouldUpdateRender = (kind: string) => {
-  if (kind !== prevKind) {
-    prevKind = kind
-    return true
-  }
-  return false
-}
+let isFirstLoad = true
+let nextContent: string | undefined
 
 export const withDocs = ({ readme }: WithDocsOptions) =>
   makeDecorator({
@@ -36,11 +22,20 @@ export const withDocs = ({ readme }: WithDocsOptions) =>
       const isCanvasView = window.location.href.match(/&embeded=true/) === null
       const api = addons.getChannel()
 
-      if (isCanvasView && shouldUpdateRender(context.kind)) {
+      if (isCanvasView) {
         if (readme !== undefined) {
-          const content = injectMarkdownPlaceholders(readme.content, readme.placeholders)
-          // FIXME: context not have id property.
-          api.emit(ADD_README, { content })
+          nextContent = injectMarkdownPlaceholders(readme.content, readme.placeholders)
+        }
+
+        if (isFirstLoad) {
+          api.on(STORY_CHANGED, () => {
+            requestAnimationFrame(() => {
+              api.emit(ADD_README, { content: nextContent })
+            })
+            nextContent = undefined
+          })
+          api.emit(ADD_README, { content: nextContent })
+          isFirstLoad = false
         }
       }
 
