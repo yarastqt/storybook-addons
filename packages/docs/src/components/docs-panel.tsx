@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, memo } from 'react'
 import { API } from '@storybook/api'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
@@ -89,14 +89,12 @@ const ReactMarkdownRenderers = {
       const content = value.match(STORY_REGEXP)
 
       if (content !== null) {
+        // TODO: Use one map instead two.
         const examples: ExampleMeta[] = content[1]
           .split(/\|/)
           .map((chunk: string) => {
             const splittedChunk = chunk.split(/:/)
-            return splittedChunk.length === 1
-              ? // Add unknown platform if not set.
-                ['Unknown', ...splittedChunk]
-              : splittedChunk
+            return splittedChunk.length === 1 ? ['Unknown', ...splittedChunk] : splittedChunk
           })
           .map(([platform, storyId]: string[]) => ({ platform, storyId }))
 
@@ -109,13 +107,13 @@ const ReactMarkdownRenderers = {
 }
 
 type DocsPanelContent = {
-  content: string
+  content?: string
   navigation: Link[]
 }
 
-export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
+export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
-    content: '',
+    content: undefined,
     navigation: [],
   })
 
@@ -130,19 +128,20 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
   })
 
   useEffect(() => {
-    // eslint-disable-next-line no-shadow
-    const onAddReadme = ({ content }: any) => {
-      // eslint-disable-next-line no-shadow
-      const navigation: Link[] = []
+    const onAddReadme = ({ content: markdown }: any) => {
+      const links: Link[] = []
       const processedContent = processMarkdownHeading({
-        markdown: content,
-        onVisit: (link) => navigation.push(link),
+        markdown,
+        onVisit: (link) => links.push(link),
       })
 
-      setContent({
-        content: processedContent,
-        navigation: navigation.filter((link) => link.level > 1 && link.level < 4),
-      })
+      if (content !== processedContent) {
+        setContent({
+          content: processedContent,
+          // eslint-disable-next-line no-magic-numbers
+          navigation: links.filter((link) => link.level > 1 && link.level < 4),
+        })
+      }
     }
 
     api.on(ADD_README, onAddReadme)
@@ -150,13 +149,13 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
     return () => {
       api.off(ADD_README, onAddReadme)
     }
-  }, [api])
+  }, [content, api])
 
   if (!active) {
     return null
   }
 
-  if (content === '') {
+  if (content === undefined) {
     return <div>No documentation content.</div>
   }
 
@@ -179,3 +178,5 @@ export const DocsPanel: FC<DocsPanelProps> = ({ api, active }) => {
     </Markdown>
   )
 }
+
+export const DocsPanel = memo(DocsPanelView)
