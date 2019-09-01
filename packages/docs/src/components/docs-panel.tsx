@@ -107,13 +107,13 @@ const ReactMarkdownRenderers = {
 }
 
 type DocsPanelContent = {
-  content: string
+  content?: string
   navigation: Link[]
 }
 
 export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
-    content: '',
+    content: undefined,
     navigation: [],
   })
 
@@ -128,19 +128,20 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   })
 
   useEffect(() => {
-    // eslint-disable-next-line no-shadow
-    const onAddReadme = ({ content }: any) => {
-      // eslint-disable-next-line no-shadow
-      const navigation: Link[] = []
+    const onAddReadme = ({ content: markdown }: any) => {
+      const links: Link[] = []
       const processedContent = processMarkdownHeading({
-        markdown: content,
-        onVisit: (link) => navigation.push(link),
+        markdown,
+        onVisit: (link) => links.push(link),
       })
 
-      setContent({
-        content: processedContent,
-        navigation: navigation.filter((link) => link.level > 1 && link.level < 4),
-      })
+      if (content !== processedContent) {
+        setContent({
+          content: processedContent,
+          // eslint-disable-next-line no-magic-numbers
+          navigation: links.filter((link) => link.level > 1 && link.level < 4),
+        })
+      }
     }
 
     api.on(ADD_README, onAddReadme)
@@ -148,13 +149,13 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
     return () => {
       api.off(ADD_README, onAddReadme)
     }
-  }, [api])
+  }, [content, api])
 
   if (!active) {
     return null
   }
 
-  if (content === '') {
+  if (content === undefined) {
     return <div>No documentation content.</div>
   }
 
