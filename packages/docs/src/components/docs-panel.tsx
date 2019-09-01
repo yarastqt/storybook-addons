@@ -89,14 +89,12 @@ const ReactMarkdownRenderers = {
       const content = value.match(STORY_REGEXP)
 
       if (content !== null) {
+        // TODO: Use one map instead two.
         const examples: ExampleMeta[] = content[1]
           .split(/\|/)
           .map((chunk: string) => {
             const splittedChunk = chunk.split(/:/)
-            return splittedChunk.length === 1
-              ? // Add unknown platform if not set.
-                ['Unknown', ...splittedChunk]
-              : splittedChunk
+            return splittedChunk.length === 1 ? ['Unknown', ...splittedChunk] : splittedChunk
           })
           .map(([platform, storyId]: string[]) => ({ platform, storyId }))
 
