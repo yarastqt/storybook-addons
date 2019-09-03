@@ -19,7 +19,7 @@
   "homepage": "https://github.com/yarastqt/storybook-addons/tree/master/packages/docs",
   "scripts": {
     "test": "exit 0",
-    "build": "rm -r dist && tsc",
+    "build": "rm -rf dist && tsc",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
