@@ -5,58 +5,51 @@ aliases:
     docker:
       - image: circleci/node:8
     working_directory: ~/source
+
   - &restore_cache
     restore_cache:
       keys:
-        - source-{{ checksum "package.json" }}
+        - npm-deps-{{ checksum "package.json" }}
+
   - &save_cache
     save_cache:
-      key: source-{{ checksum "package.json" }}
+      key: npm-deps-{{ checksum "package.json" }}
       paths:
         - node_modules
 
 jobs:
-  build:
+  setup:
     <<: *defaults
     steps:
       - checkout
       - *restore_cache
       - run: sudo npm i -g npm@6.2.0
-      - run: sudo npm i -g lerna
       - run: npm ci
-      - run: lerna bootstrap
+      - run: npx lerna bootstrap
       - *save_cache
+
   eslint:
     <<: *defaults
     steps:
       - checkout
       - *restore_cache
       - run: npm run eslint
+
   commitlint:
     <<: *defaults
     steps:
       - checkout
       - *restore_cache
       - run: node ./scripts/commitlint.js
-  unit:
-    <<: *defaults
-    steps:
-      - checkout
-      - run:
-          name: Unit tests
-          command: npm run unit
 
 workflows:
   version: 2
   all:
     jobs:
-      - build
+      - setup
       - eslint:
           requires:
-            - build
+            - setup
       - commitlint:
           requires:
-            - build
-      - unit:
-          requires:
-            - build
+            - setup
