@@ -32,7 +32,7 @@ export const processMarkdownHeading = ({ markdown, onVisit }: ProcessMarkdownHea
       onVisit({ level: level.length, url, text: heading })
     }
 
-    processedMarkdown = markdown.replace(
+    processedMarkdown = processedMarkdown.replace(
       headingRegExp,
       `<${component} id="${id}"><a class="anchor" href="${url}"></a>${heading}</${component}>\n`,
     )
