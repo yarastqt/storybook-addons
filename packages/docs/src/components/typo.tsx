@@ -5,89 +5,95 @@ export const typo = css`
   h2,
   h3,
   h4,
-  h5,
-  h6 {
-    font-weight: 600;
-    line-height: 1.25;
-    margin-bottom: 26px;
-    margin-top: 24px;
+  h5 {
+    font-weight: var(--weight-bold);
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: -0.05em;
+    line-height: var(--line-height-text-xs);
   }
 
   h1:hover .anchor::before,
   h2:hover .anchor::before,
   h3:hover .anchor::before,
   h4:hover .anchor::before,
-  h5:hover .anchor::before,
-  h6:hover .anchor::before {
+  h5:hover .anchor::before {
     visibility: visible;
   }
 
   h1 {
-    font-size: 32px;
+    font-size: var(--size-text-3xl);
   }
 
   h2 {
-    font-size: 24px;
+    font-size: var(--size-text-2xl);
   }
 
   h3 {
-    font-size: 20px;
+    font-size: var(--size-text-xl);
+  }
+
+  h4 {
+    font-size: var(--size-text-l);
+  }
+
+  h5 {
+    font-size: var(--size-text-m);
   }
 
   .anchor {
     float: left;
-    line-height: 1;
-    margin-left: -20px;
-    padding-right: 4px;
+    margin-left: -24px;
+    opacity: 0.4;
+    transition: opacity 50ms ease-in-out;
+    color: var(--color-link-minor);
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .anchor::before {
-    content: '';
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' %3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'%3E%3C/path%3E%3C/svg%3E");
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    visibility: hidden;
+    content: '#';
   }
 
-  p {
-    margin-bottom: 26px;
+  p,
+  blockquote,
+  ul,
+  ol {
+    margin-bottom: 2em;
     margin-top: 0;
-    font-size: var(--text-size);
-    line-height: var(--text-line-height);
   }
 
   ul,
   ol {
-    margin-top: 0;
-    margin-bottom: 26px;
-    padding-left: 30px;
+    padding-left: 2em;
   }
 
-  li {
-    font-size: var(--text-size);
-    line-height: var(--text-line-height);
+  ul p,
+  ol p {
+    margin-top: 1em;
   }
 
   pre {
     position: relative;
-    padding: 16px;
+    padding: var(--space-m);
     padding-right: 72px;
-    font-family: var(--code-font);
-    font-size: var(--code-size);
-    border-radius: 4px;
+    font-family: var(--font-family-mono);
+    font-size: var(--size-text-s);
+    border-radius: var(--border-radius);
     box-sizing: border-box;
     margin-top: 0;
-    margin-bottom: 26px;
+    margin-bottom: 1em;
   }
 
   blockquote {
-    margin: 20px 0;
-    padding: 16px;
-    border-radius: 4px;
-    background: rgba(255, 204, 0, 0.15);
+    margin-left: 0;
+    margin-right: 0;
+    padding: var(--space-m);
+    border-radius: var(--border-radius);
+    background: var(--color-bg-warning);
     box-sizing: border-box;
-    line-height: var(--text-line-height);
   }
 
   blockquote > :last-child {
@@ -99,21 +105,23 @@ export const typo = css`
   }
 
   code {
-    background-color: rgba(27, 31, 35, 0.05);
-    border-radius: 4px;
-    font-family: var(--code-font);
+    background-color: var(--color-bg-code);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-mono);
+    color: var(--color-typo-code);
     display: inline;
     vertical-align: baseline;
-    font-size: 85%;
-    padding: 4px 8px;
+    font-size: var(--size-text-s);
+    padding: 3px 5px;
   }
 
   a {
-    color: #1a0dab;
+    color: var(--color-link-external);
     text-decoration: none;
+    transition: color 50ms ease-in-out;
 
     &:hover {
-      color: #d00;
+      color: var(--color-link-hover);
     }
   }
 `

@@ -8,16 +8,14 @@ import { ADD_README } from '../constants'
 import { ExampleMeta, Example } from './example'
 import { CodeHighlighter } from './code-highlighter'
 import { typo } from './typo'
+import { theme } from './theme'
 
 const Markdown = styled.div`
-  --text-color: #000;
-  --text-size: 16px;
-  --text-line-height: 28px;
-  --code-size: 15px;
-  --code-font: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
-
-  background-color: #fff;
-  color: var(--text-color);
+  ${theme}
+  font-size: var(--size-text-base);
+  line-height: var(--line-height-text-m);
+  background-color: var(--color-bg-default);
+  color: var(--color-typo-primary);
 `
 
 const Wrapper = styled.div`
@@ -29,10 +27,9 @@ const Wrapper = styled.div`
 `
 
 const Content = styled.div`
+  ${typo}
   width: 750px;
   flex: 1 0 auto;
-
-  ${typo}
 
   > :first-child {
     margin-top: 0;
@@ -40,36 +37,33 @@ const Content = styled.div`
 `
 
 const Navigation = styled.div`
-  margin-left: 24px;
+  margin-left: var(--space-xl);
   flex: 1 0 240px;
   position: sticky;
   top: 0;
 `
 
 const NavigationList = styled.ul`
-  border-left: 2px solid rgba(0, 0, 0, 0.05);
-  padding-left: 24px;
+  padding-left: var(--space-xl);
+  border-left: 1px solid var(--color-bg-border);
   list-style: none;
-  font-size: 14px;
-  line-height: 21px;
+  font-size: var(--size-text-s);
+  line-height: var(--line-height-text-s);
 `
 
-type NavigationItemProps = {
-  level: number
-}
-
-const NavigationItem = styled.li<NavigationItemProps>`
-  margin-bottom: 8px;
+const NavigationItem = styled.li<{ level: number }>`
+  margin-bottom: var(--space-xs);
   /* Skip first two levels for margin. */
   margin-left: ${(props) => (props.level - 2) * 20}px;
 `
 
 const NavigationLink = styled.a`
+  color: var(--color-link-minor);
   text-decoration: none;
-  color: #999;
+  transition: color 50ms ease-in-out;
 
   &:hover {
-    color: #070;
+    color: var(--color-link-hover);
   }
 `
 
