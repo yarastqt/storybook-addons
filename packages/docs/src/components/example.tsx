@@ -4,28 +4,26 @@ import styled from '@emotion/styled'
 import { ExampleFrame } from './example-frame'
 
 const Container = styled.div`
-  border-radius: 4px;
-  background: #fff;
-  border: 2px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--border-radius);
+  background: var(--color-bg-default);
+  border: 1px solid var(--color-bg-border);
   box-sizing: border-box;
+  margin-bottom: 2em;
 `
 
 const Tabs = styled.div`
   display: flex;
   height: 44px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--color-bg-border);
 `
 
-type TabProps = {
-  active: boolean
-}
-
-const Tab = styled.div<TabProps>`
+const Tab = styled.div<{ active: boolean }>`
   padding: 0 16px;
   display: flex;
   align-items: center;
   cursor: pointer;
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid var(--color-bg-border);
+  /* TODO: Use colors from design-system. */
   color: #999;
   ${(props) =>
     props.active &&
@@ -38,11 +36,7 @@ const Tab = styled.div<TabProps>`
   }
 `
 
-type ContentProps = {
-  active: boolean
-}
-
-const Content = styled.div<ContentProps>`
+const Content = styled.div<{ active: boolean }>`
   padding: 30px 20px;
   ${(props) =>
     !props.active &&
