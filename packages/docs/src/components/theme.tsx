@@ -10,7 +10,8 @@ export const theme = css`
   --color-bg-warning: #fff7df;
 
   --color-typo-primary: #000;
-  --color-typo-code: #009b59;
+  --color-typo-secondary: rgba(0, 0, 0, 0.6);
+  --color-typo-code: #c41d7f;
 
   --color-link-external: #1a0dab;
   --color-link-hover: #d00;

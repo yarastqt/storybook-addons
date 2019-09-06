@@ -124,4 +124,40 @@ export const typo = css`
       color: var(--color-link-hover);
     }
   }
+
+  table {
+    background-color: var(--color-bg-default);
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: block;
+    margin-bottom: 1em;
+    margin-top: 0;
+    overflow: auto;
+  }
+
+  table td,
+  table th {
+    border: 1px solid var(--color-bg-border);
+    border-width: 1px 0;
+    padding: 6px 12px;
+    text-align: left;
+    vertical-align: baseline;
+  }
+
+  table td:first-child,
+  table th:first-child {
+    border-left-width: 1px;
+  }
+
+  table td:last-child,
+  table th:last-child {
+    border-right-width: 1px;
+  }
+
+  table th {
+    background-color: var(--color-bg-stripe);
+    border-bottom-width: 2px;
+    color: var(--color-typo-secondary);
+    font-weight: var(--weight-semibold);
+  }
 `
