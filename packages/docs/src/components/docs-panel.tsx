@@ -3,7 +3,7 @@ import { API } from '@storybook/api'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
 
-import { Link, processMarkdownHeading } from '../utils/process-markdown-heading'
+import { Link, processMarkdownHeading } from '../lib/process-markdown-heading'
 import { ADD_README } from '../constants'
 import { ExampleMeta, Example } from './example'
 import { CodeHighlighter } from './code-highlighter'

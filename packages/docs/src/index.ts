@@ -1,8 +1,8 @@
 import addons, { StoryGetter, StoryContext, makeDecorator } from '@storybook/addons'
 import { STORY_CHANGED } from '@storybook/core-events'
 
-import { injectMarkdownPlaceholders } from './utils/inject-markdown-placeholders'
-import { unescapeMarkdownSpecific } from './utils/unescape-markdown-specific'
+import { injectMarkdownPlaceholders } from './lib/inject-markdown-placeholders'
+import { unescapeMarkdownSpecific } from './lib/unescape-markdown-specific'
 import { ADD_README } from './constants'
 
 export type WithDocsOptions = {
