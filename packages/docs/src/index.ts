@@ -2,6 +2,7 @@ import addons, { StoryGetter, StoryContext, makeDecorator } from '@storybook/add
 import { STORY_CHANGED } from '@storybook/core-events'
 
 import { injectMarkdownPlaceholders } from './utils/inject-markdown-placeholders'
+import { unescapeMarkdownSpecific } from './utils/unescape-markdown-specific'
 import { ADD_README } from './constants'
 
 export type WithDocsOptions = {
@@ -24,7 +25,8 @@ export const withDocs = ({ readme }: WithDocsOptions) =>
 
       if (isCanvasView) {
         if (readme !== undefined) {
-          nextContent = injectMarkdownPlaceholders(readme.content, readme.placeholders)
+          nextContent = unescapeMarkdownSpecific(readme.content)
+          nextContent = injectMarkdownPlaceholders(nextContent, readme.placeholders)
         }
 
         if (isFirstLoad) {
