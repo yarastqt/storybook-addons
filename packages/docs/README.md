@@ -53,6 +53,7 @@ storiesOf('ComponentName', module)
 * [@storybook/addon-notes](https://github.com/storybookjs/storybook/tree/master/addons/notes)
 * [@storybook/addon-docs](https://github.com/storybookjs/storybook/tree/next/addons/docs)
 * [storybook-readme](https://github.com/tuchk4/storybook-readme)
+* [react-storybook-addon-chapters](https://github.com/Checkfront/react-storybook-addon-chapters)
 
 ## License
 
