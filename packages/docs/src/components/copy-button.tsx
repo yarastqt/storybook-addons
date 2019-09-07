@@ -22,6 +22,7 @@ const Text = styled.span`
   vertical-align: middle;
   margin-right: 4px;
   font-size: 14px;
+  user-select: none;
 `
 
 const Svg = styled.svg`

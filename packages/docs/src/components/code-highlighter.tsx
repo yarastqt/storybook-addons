@@ -1,6 +1,7 @@
 import React, { FC, useCallback } from 'react'
 import Highlight, { defaultProps, Language } from 'prism-react-renderer'
 import copy from 'copy-to-clipboard'
+import styled from '@emotion/styled'
 
 import { CopyButton } from './copy-button'
 
@@ -70,26 +71,49 @@ export type CodeHighlighterType = {
   language: Language
 }
 
+const CodeWrapper = styled.div`
+  position: relative;
+`
+
+const Pre = styled.pre`
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+  font-family: var(--font-family-mono);
+  font-size: var(--size-text-s);
+  line-height: var(--line-height-text-s);
+  margin-bottom: 1em;
+  margin-top: 0;
+  overflow-x: auto;
+  padding: var(--space-m);
+  white-space: pre;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+`
+
 // TODO: Add line highlight.
 export const CodeHighlighter: FC<CodeHighlighterType> = ({ value, language }) => {
   const onCopyClick = useCallback(() => {
     copy(value)
   }, [value])
 
+  // TODO: remove style and take colors from css vars.
   return (
-    <Highlight {...defaultProps} theme={theme} code={value} language={language}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={style}>
-          {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
-          <CopyButton onClick={onCopyClick} />
-        </pre>
-      )}
-    </Highlight>
+    <CodeWrapper>
+      <Highlight {...defaultProps} theme={theme} code={value} language={language}>
+        {({ style, tokens, getLineProps, getTokenProps }) => (
+          <Pre style={style}>
+            {tokens.map((line, i) => (
+              <div {...getLineProps({ line, key: i })}>
+                {line.map((token, key) => (
+                  <span {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            ))}
+          </Pre>
+        )}
+      </Highlight>
+      <CopyButton onClick={onCopyClick} />
+    </CodeWrapper>
   )
 }
