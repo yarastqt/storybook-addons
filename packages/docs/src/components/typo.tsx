@@ -75,18 +75,6 @@ export const typo = css`
     margin-top: 1em;
   }
 
-  pre {
-    position: relative;
-    padding: var(--space-m);
-    padding-right: 72px;
-    font-family: var(--font-family-mono);
-    font-size: var(--size-text-s);
-    border-radius: var(--border-radius);
-    box-sizing: border-box;
-    margin-top: 0;
-    margin-bottom: 1em;
-  }
-
   blockquote {
     margin-left: 0;
     margin-right: 0;
