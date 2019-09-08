@@ -1,0 +1,25 @@
+{
+  "name": "storybook-addons",
+  "version": 2,
+  "alias": ["storybook-addons.now.sh"],
+  "builds": [
+    {
+      "src": "examples/docs/package.json",
+      "use": "@now/static-build"
+    },
+    {
+      "src": "examples/home/index.html",
+      "use": "@now/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/docs(/?.*)",
+      "dest": "/examples/docs$1"
+    },
+    {
+      "src": "/",
+      "dest": "/examples/home"
+    }
+  ]
+}
