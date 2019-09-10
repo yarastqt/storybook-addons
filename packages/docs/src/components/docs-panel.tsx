@@ -126,7 +126,7 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
       const links: Link[] = []
       const processedContent = processMarkdownHeading({
         markdown,
-        onVisit: (link) => links.push(link),
+        onVisit: ({ text, ...link }) => links.push({ ...link, text: text.replace(/`/g, '') }),
       })
 
       if (content !== processedContent) {
