@@ -19,15 +19,16 @@ Add decorator `withDocs` for your stories:
 ```js
 import { withDocs } from '@storybook-addons/docs'
 
-storiesOf('ComponentName', module)
-  .addDecorator(withDocs({
+storiesOf('ComponentName', module).addDecorator(
+  withDocs({
     readme: {
       content: 'readme content',
       placeholders: {
         placeholderName: 'value',
       },
     },
-  }))
+  }),
+)
 ```
 
 ## Markdown syntax
@@ -36,9 +37,11 @@ storiesOf('ComponentName', module)
 
 ```markdown
 <!-- single story -->
+
 {{%story::story-id%}}
 
 <!-- multi stories with tab names -->
+
 {{%story::tabName:story-id|tabName:story-id%}}
 ```
 
@@ -50,10 +53,10 @@ storiesOf('ComponentName', module)
 
 ## Similar packages
 
-* [@storybook/addon-notes](https://github.com/storybookjs/storybook/tree/master/addons/notes)
-* [@storybook/addon-docs](https://github.com/storybookjs/storybook/tree/next/addons/docs)
-* [storybook-readme](https://github.com/tuchk4/storybook-readme)
-* [react-storybook-addon-chapters](https://github.com/Checkfront/react-storybook-addon-chapters)
+- [@storybook/addon-notes](https://github.com/storybookjs/storybook/tree/master/addons/notes)
+- [@storybook/addon-docs](https://github.com/storybookjs/storybook/tree/next/addons/docs)
+- [storybook-readme](https://github.com/tuchk4/storybook-readme)
+- [react-storybook-addon-chapters](https://github.com/Checkfront/react-storybook-addon-chapters)
 
 ## License
 
