@@ -4,12 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": [
-    "storybook",
-    "docs",
-    "addon",
-    "documentation"
-  ],
+  "keywords": ["storybook", "docs", "addon", "documentation"],
   "author": "Eugene Tropin <yarastqt@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -41,9 +36,5 @@
   "peerDependencies": {
     "react": "^16.8.6"
   },
-  "files": [
-    "dist",
-    "src",
-    "register.js"
-  ]
+  "files": ["dist", "src", "register.js"]
 }

@@ -4,7 +4,6 @@
   "scripts": {
     "eslint": "eslint --ext .ts,.tsx packages/**/src/**",
     "examples:deploy": "now",
-    "format": "prettier --write packages/**/src/**/*.{ts,tsx}",
     "publish:canary": "lerna publish --canary --npm-tag canary --preid beta --no-git-tag-version",
     "publish:latest": "lerna publish",
     "unit": "exit 0"
