@@ -85,6 +85,7 @@ const Pre = styled.pre`
   margin-top: 0;
   overflow-x: auto;
   padding: var(--space-m);
+  tab-size: 4;
   white-space: pre;
   word-break: normal;
   word-spacing: normal;
