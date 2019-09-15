@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
-    "@storybook-addons/docs": "^1.1.0",
+    "@storybook-addons/docs": "^1.2.0",
     "@storybook/addons": "^5.1.11",
     "@storybook/react": "^5.1.11",
     "babel-loader": "^8.0.6"
