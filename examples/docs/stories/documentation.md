@@ -5,11 +5,7 @@
 ```js
 import React from 'react'
 
-export const App = () => (
-  <div>
-    Hello world!
-  </div>
-)
+export const App = () => <div>Hello world!</div>
 ```
 
 ### Level 3.1
@@ -18,13 +14,13 @@ export const App = () => (
 
 ### Level 3.2
 
-| Column 1 | Column 2                                                             | Column 3   | Column 4 |
-|----------|----------------------------------------------------------------------|------------|----------|
-| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | *cell 4* |
-| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | *cell 4* |
-| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | *cell 4* |
-| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | *cell 4* |
-| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | *cell 4* |
+| Column 1 | Column 2                                               | Column 3   | Column 4 |
+| -------- | ------------------------------------------------------ | ---------- | -------- |
+| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | _cell 4_ |
+| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | _cell 4_ |
+| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | _cell 4_ |
+| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | _cell 4_ |
+| cell 1   | `Lorem, ipsum dolor sit amet consectetur el. Ea, nam.` | **cell 3** | _cell 4_ |
 
 ## Level 2.2
 
@@ -45,11 +41,15 @@ Lorem, [ipsum](#level-34) dolor sit amet consectetur adipisicing elit.
 #### Level 4
 
 1. Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+   1.1 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+   1.2 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
 1. Lorem, ipsum dolor sit amet consectetur adipisicing elit.
 1. Lorem, ipsum dolor sit amet consectetur adipisicing elit.
 
 #### Level 5
 
-* Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-* Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-* Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+- Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+  - Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+  - Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+- Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+- Lorem, ipsum dolor sit amet consectetur adipisicing elit.
