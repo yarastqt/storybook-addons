@@ -73,6 +73,14 @@ export const typo = css`
   ul p,
   ol p {
     margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  ol ol,
+  ol ul,
+  ul ol,
+  ul ul {
+    margin-bottom: 0;
   }
 
   blockquote {

@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "start": "start-storybook -p 6006",
+    "start": "start-storybook -p 6006 --ci",
     "cleanup": "rm -rf public",
     "build": "npm run cleanup && build-storybook -c .storybook -o public"
   },
