@@ -1,4 +1,4 @@
-export const PARAM_ID = 'docsx'
+export const PARAM_KEY = 'docsx'
 
 export const defaultParams = {
   /**

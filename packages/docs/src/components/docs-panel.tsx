@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown/with-html'
 
 import { Link, processMarkdownHeading } from '../lib/process-markdown-heading'
 import { ADD_README } from '../constants'
-import { PARAM_ID, DocsxParams, defaultParams } from '../params'
+import { PARAM_KEY, DocsxParams, defaultParams } from '../params'
 import { ExampleMeta, Example } from './example'
 import { CodeHighlighter } from './code-highlighter'
 import { typo } from './typo'
@@ -108,7 +108,7 @@ type DocsPanelContent = {
 
 export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   const currentStoryData = api.getCurrentStoryData() || {}
-  const userParams = api.getParameters(currentStoryData.id, PARAM_ID) || {}
+  const userParams = api.getParameters(currentStoryData.id, PARAM_KEY) || {}
   const { enableNavigation }: DocsxParams = { ...defaultParams, ...userParams }
 
   const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
