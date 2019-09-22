@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown/with-html'
 
 import { Link, processMarkdownHeading } from '../lib/process-markdown-heading'
 import { ADD_README } from '../constants'
+import { PARAM_ID, DocsxParams, defaultParams } from '../params'
 import { ExampleMeta, Example } from './example'
 import { CodeHighlighter } from './code-highlighter'
 import { typo } from './typo'
@@ -106,6 +107,10 @@ type DocsPanelContent = {
 }
 
 export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
+  const currentStoryData = api.getCurrentStoryData() || {}
+  const userParams = api.getParameters(currentStoryData.id, PARAM_ID) || {}
+  const { enableNavigation }: DocsxParams = { ...defaultParams, ...userParams }
+
   const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
     content: undefined,
     navigation: [],
@@ -159,15 +164,17 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
         <Content>
           <ReactMarkdown escapeHtml={false} source={content} renderers={ReactMarkdownRenderers} />
         </Content>
-        <Navigation>
-          <NavigationList>
-            {navigation.map((link) => (
-              <NavigationItem key={link.url} level={link.level}>
-                <NavigationLink href={link.url}>{link.text}</NavigationLink>
-              </NavigationItem>
-            ))}
-          </NavigationList>
-        </Navigation>
+        {enableNavigation && (
+          <Navigation>
+            <NavigationList>
+              {navigation.map((link) => (
+                <NavigationItem key={link.url} level={link.level}>
+                  <NavigationLink href={link.url}>{link.text}</NavigationLink>
+                </NavigationItem>
+              ))}
+            </NavigationList>
+          </Navigation>
+        )}
       </Wrapper>
     </Markdown>
   )
