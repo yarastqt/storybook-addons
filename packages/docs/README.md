@@ -11,7 +11,15 @@ npm i -D @storybook-addons/docs
 1. Register this addon in `.storybook/addons.js`:
 
 ```js
+// With default configuration.
 import '@storybook-addons/docs/register'
+
+// With custom configuration.
+import { registerWithConfigure } from '@storybook-addons/docs/register-with-configure'
+
+registerWithConfigure({
+  tabTitle: 'Custom tab ttitle',
+})
 ```
 
 2. Add decorator `withDocs` for your stories:
@@ -30,6 +38,12 @@ storiesOf('ComponentName', module).addDecorator(
   }),
 )
 ```
+
+### Register options
+
+| Option   | Description | Default           |
+| -------- | ----------- | ----------------- |
+| tabTitle | Tab title.  | `'Documentation'` |
 
 ## Configuration
 

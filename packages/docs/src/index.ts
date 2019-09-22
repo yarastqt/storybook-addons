@@ -4,7 +4,7 @@ import { STORY_CHANGED } from '@storybook/core-events'
 import { injectMarkdownPlaceholders } from './lib/inject-markdown-placeholders'
 import { unescapeMarkdownSpecific } from './lib/unescape-markdown-specific'
 import { ADD_README } from './constants'
-import { PARAM_ID } from './params'
+import { PARAM_KEY } from './params'
 
 export type WithDocsOptions = {
   readme?: {
@@ -19,7 +19,7 @@ let nextContent: string | undefined
 export const withDocs = ({ readme }: WithDocsOptions) =>
   makeDecorator({
     name: 'withDocs',
-    parameterName: PARAM_ID,
+    parameterName: PARAM_KEY,
     wrapper: (getStory: StoryGetter, context: StoryContext) => {
       const isCanvasView = window.location.href.match(/&embeded=true/) === null
       const api = addons.getChannel()
