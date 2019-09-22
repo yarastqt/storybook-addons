@@ -9,6 +9,7 @@ const Container = styled.div`
   border: 1px solid var(--color-bg-border);
   box-sizing: border-box;
   margin-bottom: 2em;
+  box-shadow: 0 2px 8px var(--color-bg-border);
 `
 
 const Tabs = styled.div`
