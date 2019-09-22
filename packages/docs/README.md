@@ -8,13 +8,13 @@ npm i -D @storybook-addons/docs
 
 ## Usage
 
-Register addon in `.storybook/addons.js`:
+1. Register this addon in `.storybook/addons.js`:
 
 ```js
 import '@storybook-addons/docs/register'
 ```
 
-Add decorator `withDocs` for your stories:
+2. Add decorator `withDocs` for your stories:
 
 ```js
 import { withDocs } from '@storybook-addons/docs'
@@ -30,6 +30,37 @@ storiesOf('ComponentName', module).addDecorator(
   }),
 )
 ```
+
+## Configuration
+
+- Global configuration:
+
+```js
+import { addParameters } from '@storybook/react'
+
+addParameters({
+  docsx: {
+    ...
+  },
+})
+```
+
+- Story configuration:
+
+```js
+storiesOf('ComponentName', module)
+  .add('story-id', () => ..., {
+    docsx: {
+      ...
+    },
+  })
+```
+
+### Configuration options
+
+| Option           | Description                       | Default |
+| ---------------- | --------------------------------- | ------- |
+| enableNavigation | Show navigation at right sidebar. | `true`  |
 
 ## Markdown syntax
 
