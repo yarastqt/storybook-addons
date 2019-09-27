@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { API } from '@storybook/api'
 import addons, { types } from '@storybook/addons'
 
@@ -21,7 +21,12 @@ export const registerWithConfigure = ({ tabTitle = 'Documentation' }: ConfigureO
       title: tabTitle,
       route: ({ storyId }) => `/docsx/${storyId}`,
       match: ({ viewMode }) => viewMode === 'docsx',
-      render: ({ active }) => <DocsPanel api={api} active={active} />,
+      render: ({ active }) => {
+        useEffect(() => {
+          document.dispatchEvent(new Event('updateUrl', { bubbles: true }));
+        }, [active]);
+        return (<DocsPanel api={api} active={active} />);
+      },
     })
   })
 }
