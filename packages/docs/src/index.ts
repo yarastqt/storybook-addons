@@ -32,9 +32,9 @@ export const withDocs = ({ readme }: WithDocsOptions) =>
 
         if (isFirstLoad) {
           api.on(STORY_CHANGED, () => {
-            requestAnimationFrame(() => {
+            setTimeout(() => {
               api.emit(ADD_README, { content: nextContent })
-            })
+            }, 0)
             nextContent = undefined
           })
           api.emit(ADD_README, { content: nextContent })
