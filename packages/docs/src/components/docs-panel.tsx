@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, memo } from 'react'
+import React, { FC, useEffect, useState, memo, useMemo } from 'react'
 import { API } from '@storybook/api'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
@@ -11,6 +11,8 @@ import { CodeHighlighter } from './code-highlighter'
 import { typo } from './typo'
 import { theme } from './theme'
 
+// TODO: фиксануть все версии
+// TODO: rename MD to Container
 const Markdown = styled.div`
   ${theme}
   font-size: var(--size-text-base);
@@ -75,7 +77,7 @@ export type DocsPanelProps = {
 
 const STORY_REGEXP = /{{%story::(.+.)%}}/
 
-const ReactMarkdownRenderers = {
+const ReactMarkdownRenderers: any = ({ sources }: any) => ({
   code: CodeHighlighter,
   paragraph: ({ children }: any) => {
     const { value } = children[0].props
@@ -93,13 +95,15 @@ const ReactMarkdownRenderers = {
           })
           .map(([platform, storyId]: string[]) => ({ platform, storyId }))
 
-        return <Example examples={examples} />
+          // TODO: каэется лучше назвать это Preview
+          // https://github.com/storybookjs/storybook/blob/master/lib/components/src/blocks/Preview.tsx
+          return <Example examples={examples} sources={sources} />
       }
     }
 
     return <p>{children}</p>
   },
-}
+})
 
 type DocsPanelContent = {
   content?: string
@@ -116,6 +120,9 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
     navigation: [],
   })
 
+  // TODO: Используем пока что просто объект чтобы отфильровать похожие данные, потом просто подумаем как это сделать чуть раньше
+  const [sources, setSources] = useState({})
+
   useEffect(() => {
     if (window.location.hash !== '') {
       const hash = decodeURIComponent(window.location.hash)
@@ -127,17 +134,42 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   })
 
   useEffect(() => {
+    const faker = ({ id, source }: any) => {
+
+      // console.log('emit??')
+
+      // console.log('>>> source', id, source)
+
+      // @ts-ignore
+      if (sources[id] === undefined) {
+        setSources((prev) => ({
+          ...prev,
+          [id]: source,
+        }))
+      }
+
+    }
+
+      // TODO: Сделать отписку
+      api.on('fake', faker)
+      return () => api.off('fake', faker)
+  }, [sources, api])
+
+  useEffect(() => {
     const onAddReadme = ({ content: markdown }: any) => {
       const links: Link[] = []
       const processedContent = processMarkdownHeading({
         markdown,
+        // TODO: Нужно узнать, стоит ли выносить регулярки в переменные, чтобы они не компилироваилсь каждйы раз или нет смысла?
         onVisit: ({ text, ...link }) => links.push({ ...link, text: text.replace(/`/g, '') }),
       })
 
+      // TODO: тут бы тоже комментарий оставить наверное
       if (content !== processedContent) {
         setContent({
           content: processedContent,
           // eslint-disable-next-line no-magic-numbers
+          // TODO: add comment here
           navigation: links.filter((link) => link.level > 1 && link.level < 4),
         })
       }
@@ -150,6 +182,13 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
     }
   }, [content, api])
 
+  // console.log(sources)
+
+  const renderers = useMemo(() => ReactMarkdownRenderers({ sources }), [sources])
+
+  // console.log(sources)
+
+  // TODO: кажется, что active можно вынести на уровень и выше в register и потенциально не вызывать эффекты.
   if (!active) {
     return null
   }
@@ -162,8 +201,11 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
     <Markdown>
       <Wrapper>
         <Content>
-          <ReactMarkdown escapeHtml={false} source={content} renderers={ReactMarkdownRenderers} />
+          {/* TODO: из-за того, что тут функция то на каждом рендере мы получаем новую функцию, сука... */}
+          {/* TODO: можем заиспользуем реф для мемоизации? */}
+          <ReactMarkdown escapeHtml={false} source={content} renderers={renderers} />
         </Content>
+        {/* TODO: вот это можно вынетси в отдельный компонент, чтобы оптимизировать ре-рендер */}
         {enableNavigation && (
           <Navigation>
             <NavigationList>

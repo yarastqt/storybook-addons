@@ -68,7 +68,10 @@ const theme = {
 
 export type CodeHighlighterType = {
   value: string
-  language: Language
+  /**
+   * @default 'jsx'
+   */
+  language?: Language
 }
 
 const CodeWrapper = styled.div`
@@ -81,8 +84,12 @@ const Pre = styled.pre`
   font-family: var(--font-family-mono);
   font-size: var(--size-text-s);
   line-height: var(--line-height-text-s);
-  margin-bottom: 1em;
+  /* нужен параметр для отключения */
+  /* TODO: это как фикс */
+  /* margin-bottom: 2em; */
+margin-bottom: 2em;
   margin-top: 0;
+  /* margin: 0; */
   overflow-x: auto;
   padding: var(--space-m);
   tab-size: 4;
@@ -93,7 +100,7 @@ const Pre = styled.pre`
 `
 
 // TODO: Add line highlight.
-export const CodeHighlighter: FC<CodeHighlighterType> = ({ value, language }) => {
+export const CodeHighlighter: FC<CodeHighlighterType> = ({ value, language = 'jsx' }) => {
   const onCopyClick = useCallback(() => {
     copy(value)
   }, [value])

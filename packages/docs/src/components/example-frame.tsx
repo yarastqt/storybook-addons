@@ -18,6 +18,7 @@ export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId, visible }) => {
     return null
   }
 
+  // https://github.com/storybookjs/storybook/blob/master/lib/components/src/blocks/IFrame.tsx
   const onLoad = useCallback((event: SyntheticEvent<HTMLIFrameElement>) => {
     const target = event.target as HTMLIFrameElement
     setTimeout(() => {
