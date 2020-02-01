@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.2.0...@storybook-addons/docs@1.3.0) (2020-02-01)
+
+### Bug Fixes
+
+- **docs:** reset margin-bottom for nested list ([472f1ca](https://github.com/yarastqt/storybook-addons/commit/472f1ca))
+- **docs:** set margin-bottom for p in list ([5dfe5fc](https://github.com/yarastqt/storybook-addons/commit/5dfe5fc))
+- **docs:** use setTimeout instead rAF for firefox ([5fe27d7](https://github.com/yarastqt/storybook-addons/commit/5fe27d7))
+
+### Features
+
+- **docs:** add box-shadow for example block ([ef44c08](https://github.com/yarastqt/storybook-addons/commit/ef44c08))
+- **docs:** add configure for register addon ([b1dfa31](https://github.com/yarastqt/storybook-addons/commit/b1dfa31))
+- **docs:** add tab-size for code block ([a398ec1](https://github.com/yarastqt/storybook-addons/commit/a398ec1))
+- **docs:** use params for configure layout ([50d8e3f](https://github.com/yarastqt/storybook-addons/commit/50d8e3f))
+
 # [1.2.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.1.0...@storybook-addons/docs@1.2.0) (2019-09-10)
 
 ### Bug Fixes
