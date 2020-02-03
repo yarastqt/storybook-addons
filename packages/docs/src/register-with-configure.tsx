@@ -1,9 +1,12 @@
 import React from 'react'
 import { API } from '@storybook/api'
 import addons, { types } from '@storybook/addons'
+import { withFireEvents } from '@storybook-addons/sync-external-url'
 
 import { ADDON_ID, PANEL_ID } from './constants'
 import { DocsPanel } from './components/docs-panel'
+
+const DocsPanelEnhanced = withFireEvents(DocsPanel)
 
 type ConfigureOptions = {
   /**
@@ -21,7 +24,7 @@ export const registerWithConfigure = ({ tabTitle = 'Documentation' }: ConfigureO
       title: tabTitle,
       route: ({ storyId }) => `/docsx/${storyId}`,
       match: ({ viewMode }) => viewMode === 'docsx',
-      render: ({ active }) => <DocsPanel api={api} active={active} />,
+      render: ({ active }) => <DocsPanelEnhanced api={api} active={active} />,
     })
   })
 }
