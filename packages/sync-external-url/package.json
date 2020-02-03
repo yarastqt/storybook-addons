@@ -1,0 +1,36 @@
+{
+  "name": "@storybook-addons/sync-external-url",
+  "version": "0.0.1-alpha.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["storybook", "addon"],
+  "author": "Eugene Tropin <yarastqt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yarastqt/storybook-addons/issues"
+  },
+  "repository": "https://github.com/yarastqt/storybook-addons",
+  "homepage": "https://github.com/yarastqt/storybook-addons/tree/master/packages/sync-external-url",
+  "scripts": {
+    "test": "exit 0",
+    "build": "rm -rf dist && tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "dependencies": {
+    "@storybook/addons": "^5.1.9",
+    "@storybook/api": "^5.1.9",
+    "@storybook/core-events": "^5.1.11",
+    "query-string": "6.10.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.19"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6"
+  },
+  "files": ["dist", "src", "register.js"]
+}
