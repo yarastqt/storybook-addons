@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.3.0...@storybook-addons/docs@1.4.0) (2020-02-04)
+
+### Features
+
+- **docs:** add @storybook-addons/sync-external-url ([65c3ef1](https://github.com/yarastqt/storybook-addons/commit/65c3ef1))
+- **docs:** wrap DocsPanel at withUpdateContent ([d8cc70e](https://github.com/yarastqt/storybook-addons/commit/d8cc70e))
+
 # [1.3.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.2.0...@storybook-addons/docs@1.3.0) (2020-02-01)
 
 ### Bug Fixes
