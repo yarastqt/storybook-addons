@@ -20,10 +20,12 @@ type IframeLoaderProps = IframeProps & {
 export const IframeLoader: FC<IframeLoaderProps> = ({ queryPrefix = 'path', src, ...props }) => {
   const source = useMemo(() => {
     const queryData = qs.parse(window.location.search)
+    const urlData = qs.parseUrl(src)
     return qs.stringifyUrl({
-      url: src,
+      url: urlData.url,
       query: {
-        path: queryData[queryPrefix],
+        ...urlData.query,
+        path: queryData[queryPrefix] || urlData.query.path,
       },
     })
   }, [queryPrefix, src])
