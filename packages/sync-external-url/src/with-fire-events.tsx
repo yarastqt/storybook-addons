@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { API } from '@storybook/api'
+
 import { UPDATE } from './constants'
 
 type WithFireEventsProps = {
