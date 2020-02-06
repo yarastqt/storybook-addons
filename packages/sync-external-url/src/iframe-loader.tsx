@@ -3,8 +3,8 @@ import qs from 'query-string'
 
 import { UPDATE } from './constants'
 
-type IframeProps = IframeHTMLAttributes<HTMLIFrameElement>
-type IframeLoaderProps = IframeProps & {
+type IframeHtmlProps = IframeHTMLAttributes<HTMLIFrameElement>
+type IframeLoaderProps = IframeHtmlProps & {
   /**
    * Prefix used for query search.
    *
