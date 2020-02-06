@@ -6,13 +6,12 @@ import { ADDON_ID, UPDATE } from './constants'
 addons.register(ADDON_ID, (api) => {
   const channel = api.getChannel()
   const onUpdate = () => {
-    window.parent.postMessage(
-      JSON.stringify({
-        method: UPDATE,
-        payload: { path: api.getUrlState().path },
-      }),
-      '*',
-    )
+    const { path } = api.getUrlState()
+    const message = JSON.stringify({
+      method: UPDATE,
+      payload: { path },
+    })
+    window.parent.postMessage(message, '*')
   }
 
   channel.on(STORY_CHANGED, onUpdate)
