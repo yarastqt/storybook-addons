@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.4.1...@storybook-addons/docs@1.4.2) (2020-02-08)
+
+**Note:** Version bump only for package @storybook-addons/docs
+
 ## [1.4.1](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.4.0...@storybook-addons/docs@1.4.1) (2020-02-04)
 
 **Note:** Version bump only for package @storybook-addons/docs
