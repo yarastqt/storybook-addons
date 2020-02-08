@@ -24,9 +24,10 @@
     "@storybook/addons": "^5.1.9",
     "@storybook/api": "^5.1.9",
     "@storybook/core-events": "^5.1.11",
-    "query-string": "6.10.1"
+    "query-string": "5.1.1"
   },
   "devDependencies": {
+    "@types/query-string": "5.1.0",
     "@types/react": "^16.9.19"
   },
   "peerDependencies": {
