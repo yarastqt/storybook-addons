@@ -25,6 +25,7 @@ export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId, visible }) => {
         // Fix iframe height after load.
         target.style.height = `${target.contentWindow.document.body.scrollHeight}px`
         target.contentWindow.document.body.style.margin = '0'
+        target.contentWindow.document.body.style.padding = '0'
       }
     }, FRAME_TICK)
   }, [])
