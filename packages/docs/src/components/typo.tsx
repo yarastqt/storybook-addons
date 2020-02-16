@@ -156,4 +156,8 @@ export const typo = css`
     color: var(--color-typo-secondary);
     font-weight: var(--weight-semibold);
   }
+
+  img {
+    max-width: 100%;
+  }
 `
