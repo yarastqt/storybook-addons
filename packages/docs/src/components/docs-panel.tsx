@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
   ${typo}
   width: 750px;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
 
   > :first-child {
     margin-top: 0;
