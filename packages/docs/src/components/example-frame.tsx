@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 const Frame = styled.iframe`
   width: 100%;
   border: none;
+  display: block;
 `
 
 export type ExampleFrameProps = {
@@ -23,9 +24,9 @@ export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId, visible }) => {
     setTimeout(() => {
       if (target.contentWindow !== null) {
         // Fix iframe height after load.
-        target.style.height = `${target.contentWindow.document.body.scrollHeight}px`
+        target.style.height = `${target.contentWindow.document.body.scrollHeight + 20}px`
         target.contentWindow.document.body.style.margin = '0'
-        target.contentWindow.document.body.style.padding = '0'
+        target.contentWindow.document.body.style.padding = '30px 20px'
       }
     }, FRAME_TICK)
   }, [])

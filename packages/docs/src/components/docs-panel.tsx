@@ -13,6 +13,7 @@ import { theme } from './theme'
 
 const Markdown = styled.div`
   ${theme}
+  font-family: var(--font-family);
   font-size: var(--size-text-base);
   line-height: var(--line-height-text-m);
   background-color: var(--color-bg-default);
@@ -48,23 +49,23 @@ const NavigationList = styled.ul`
   padding-left: var(--space-xl);
   border-left: 1px solid var(--color-bg-border);
   list-style: none;
-  font-size: var(--size-text-s);
-  line-height: var(--line-height-text-s);
+  font-size: var(--size-text-m);
+  line-height: var(--line-height-text-m);
 `
 
 const NavigationItem = styled.li<{ level: number }>`
-  margin-bottom: var(--space-xs);
-  /* Skip first two levels for margin. */
-  margin-left: ${(props) => (props.level - 2) * 20}px;
+  margin: ${(props) => (props.level === 2 ? `12px 0` : `4px 0 4px 12px`)};
 `
 
-const NavigationLink = styled.a`
-  color: var(--color-link-minor);
+const NavigationLink = styled.a<{ level: number }>`
+  color: ${(props) =>
+    props.level === 2 ? 'var(--color-typo-primary)' : 'var(--color-link-external)'};
   text-decoration: none;
-  transition: color 50ms ease-in-out;
+  transition: color 100ms ease-in-out;
+  font-weight: ${(props) => (props.level === 2 ? 'var(--weight-bold)' : 'var(--weight-normal)')};
 
   &:hover {
-    color: var(--color-link-hover);
+    color: var(--color-link-external-hover);
   }
 `
 
@@ -169,7 +170,9 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
             <NavigationList>
               {navigation.map((link) => (
                 <NavigationItem key={link.url} level={link.level}>
-                  <NavigationLink href={link.url}>{link.text}</NavigationLink>
+                  <NavigationLink level={link.level} href={link.url}>
+                    {link.text}
+                  </NavigationLink>
                 </NavigationItem>
               ))}
             </NavigationList>
