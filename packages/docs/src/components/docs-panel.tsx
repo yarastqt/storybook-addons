@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, memo } from 'react'
+import React, { FC, useEffect, useState, useRef, memo } from 'react'
 import { API } from '@storybook/api'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
@@ -6,10 +6,11 @@ import ReactMarkdown from 'react-markdown/with-html'
 import { Link, processMarkdownHeading } from '../lib/process-markdown-heading'
 import { ADD_README } from '../constants'
 import { PARAM_KEY, DocsxParams, defaultParams } from '../params'
-import { ExampleMeta, Example } from './example'
-import { CodeHighlighter } from './code-highlighter'
+import { SkeletonContent } from './skeleton-content'
+import { EmptyContent } from './empty-content'
 import { typo } from './typo'
 import { theme } from './theme'
+import { markdownRenderers } from './markdown-renderers'
 
 const Markdown = styled.div`
   ${theme}
@@ -74,34 +75,6 @@ export type DocsPanelProps = {
   api: API
 }
 
-const STORY_REGEXP = /{{%story::(.+.)%}}/
-
-const ReactMarkdownRenderers = {
-  code: CodeHighlighter,
-  paragraph: ({ children }: any) => {
-    const { value } = children[0].props
-
-    if (value !== undefined) {
-      const content = value.match(STORY_REGEXP)
-
-      if (content !== null) {
-        // TODO: Use one map instead two.
-        const examples: ExampleMeta[] = content[1]
-          .split(/\|/)
-          .map((chunk: string) => {
-            const splittedChunk = chunk.split(/:/)
-            return splittedChunk.length === 1 ? ['Unknown', ...splittedChunk] : splittedChunk
-          })
-          .map(([platform, storyId]: string[]) => ({ platform, storyId }))
-
-        return <Example examples={examples} />
-      }
-    }
-
-    return <p>{children}</p>
-  },
-}
-
 type DocsPanelContent = {
   content?: string
   navigation: Link[]
@@ -111,6 +84,9 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
   const currentStoryData = api.getCurrentStoryData() || {}
   const userParams = api.getParameters(currentStoryData.id, PARAM_KEY) || {}
   const { enableNavigation }: DocsxParams = { ...defaultParams, ...userParams }
+
+  const isFirstRender = useRef(true)
+  const [shownSkeleton, setShownSkeleton] = useState(true)
 
   const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
     content: undefined,
@@ -151,19 +127,36 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
     }
   }, [content, api])
 
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+    } else {
+      setShownSkeleton(Boolean(content))
+    }
+  }, [content])
+
   if (!active) {
     return null
   }
 
-  if (content === undefined) {
-    return <div>No documentation content.</div>
+  if (!content) {
+    return (
+      <Markdown>
+        <Wrapper>
+          <Content>
+            {/* eslint-disable-next-line eslint(prettier/prettier) */}
+            {shownSkeleton ? <SkeletonContent /> : <EmptyContent />}
+          </Content>
+        </Wrapper>
+      </Markdown>
+    )
   }
 
   return (
     <Markdown>
       <Wrapper>
         <Content>
-          <ReactMarkdown escapeHtml={false} source={content} renderers={ReactMarkdownRenderers} />
+          <ReactMarkdown escapeHtml={false} renderers={markdownRenderers} source={content} />
         </Content>
         {enableNavigation && (
           <Navigation>
