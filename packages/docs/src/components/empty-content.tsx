@@ -9,6 +9,8 @@ const content = `
 Add \`withDocs\` decorator in your story for adding documentation:
 
 \`\`\`js
+import { withDocs } from '@storybook-addons/docs'
+
 export default {
   title: 'StoryKind',
   decorators: [
