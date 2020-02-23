@@ -38,7 +38,6 @@ const Tab = styled.div<{ active: boolean }>`
 `
 
 const Content = styled.div<{ active: boolean }>`
-  padding: 30px 20px;
   ${(props) =>
     !props.active &&
     `
