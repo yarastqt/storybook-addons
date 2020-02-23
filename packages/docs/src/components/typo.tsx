@@ -7,14 +7,14 @@ export const typo = css`
   h4,
   h5 {
     font-weight: var(--weight-bold);
-  }
 
-  h1:hover .anchor,
-  h2:hover .anchor,
-  h3:hover .anchor,
-  h4:hover .anchor,
-  h5:hover .anchor {
-    opacity: 1;
+    &:hover .anchor {
+      opacity: 1;
+    }
+
+    img {
+      margin: 0;
+    }
   }
 
   h1 {
