@@ -20,7 +20,11 @@ export const processMarkdownHeading = ({ markdown, onVisit }: ProcessMarkdownHea
   // eslint-disable-next-line no-cond-assign
   while ((executed = HEADING_REGEXP_GLOBAL.exec(markdown)) !== null) {
     const [rawHeading, level, heading] = executed
-    const headingRegExp = new RegExp(`^${rawHeading}`, 'm')
+    // prettier-ignore
+    const sanitizedRawHeading = rawHeading
+      .replace('(', '\\(')
+      .replace(')', '\\)')
+    const headingRegExp = new RegExp(`^${sanitizedRawHeading}`, 'm')
     const id = heading
       .toLowerCase()
       .replace(SYMBOL_REGEXP, '')
