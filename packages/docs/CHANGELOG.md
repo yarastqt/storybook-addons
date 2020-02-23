@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.4.3...@storybook-addons/docs@1.5.0) (2020-02-23)
+
+### Bug Fixes
+
+- reset margin for img in headings ([c1a4b50](https://github.com/yarastqt/storybook-addons/commit/c1a4b50))
+- sanitize heading before processing ([7abfd61](https://github.com/yarastqt/storybook-addons/commit/7abfd61))
+
+### Features
+
+- add empty content layout ([31c4f99](https://github.com/yarastqt/storybook-addons/commit/31c4f99))
+- add interop for content with cjs ([d0d0be4](https://github.com/yarastqt/storybook-addons/commit/d0d0be4))
+- add skeleton layout ([44696d2](https://github.com/yarastqt/storybook-addons/commit/44696d2))
+- new design for copy-button ([e1917fe](https://github.com/yarastqt/storybook-addons/commit/e1917fe))
+- new design for docs panel ([5829bc9](https://github.com/yarastqt/storybook-addons/commit/5829bc9))
+- shown skeleton while loading ([b86072b](https://github.com/yarastqt/storybook-addons/commit/b86072b))
+
 ## [1.4.3](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.4.2...@storybook-addons/docs@1.4.3) (2020-02-16)
 
 ### Bug Fixes
