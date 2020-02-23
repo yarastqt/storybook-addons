@@ -8,7 +8,7 @@ import { PARAM_KEY } from './params'
 
 export type WithDocsOptions = {
   readme?: {
-    content: string
+    content: string | { default: string }
     placeholders?: Record<string, string>
   }
 }
@@ -26,7 +26,8 @@ export const withDocs = ({ readme }: WithDocsOptions) =>
 
       if (isCanvasView) {
         if (readme !== undefined) {
-          nextContent = unescapeMarkdownSpecific(readme.content)
+          nextContent = typeof readme.content === 'string' ? readme.content : readme.content.default
+          nextContent = unescapeMarkdownSpecific(nextContent)
           nextContent = injectMarkdownPlaceholders(nextContent, readme.placeholders)
         }
 
