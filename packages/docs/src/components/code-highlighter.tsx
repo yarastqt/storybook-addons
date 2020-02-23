@@ -7,60 +7,36 @@ import { CopyButton } from './copy-button'
 
 const theme = {
   plain: {
-    backgroundColor: '#011627',
-    color: '#fff',
+    backgroundColor: '#f5f5f5',
+    color: '#111',
   },
   styles: [
     {
-      style: { color: '#809393' },
+      style: { color: '#777' },
       types: ['comment'],
     },
     {
-      style: { color: '#addb67' },
-      types: ['string', 'url'],
+      style: { color: '#009688' },
+      types: ['string', 'url', 'attr-value'],
     },
     {
-      style: { color: '#d6deeb' },
-      types: ['variable'],
-    },
-    {
-      style: { color: '#f78c6c' },
+      style: { color: '#660099' },
       types: ['number'],
     },
     {
-      style: { color: '#82aaff' },
-      types: ['builtin', 'char', 'constant', 'function'],
-    },
-    {
-      style: { color: '#c792ea' },
+      style: { color: '#777' },
       types: ['punctuation'],
     },
     {
-      style: { color: '#c792ea' },
-      types: ['doctype', 'selector'],
+      style: { color: '#00009f' },
+      types: ['keyword', 'tag', 'atrule'],
     },
     {
-      style: { color: '#ffcb8b' },
-      types: ['class-name'],
+      style: { color: '#777' },
+      types: ['operator'],
     },
     {
-      style: { color: '#ffa7c4' },
-      types: ['keyword', 'operator', 'tag'],
-    },
-    {
-      style: { color: '#ff5874' },
-      types: ['boolean'],
-    },
-    {
-      style: { color: '#80cbc4' },
-      types: ['property'],
-    },
-    {
-      style: { color: '#b2ccd6' },
-      types: ['namespace'],
-    },
-    {
-      style: { color: '#addb67' },
+      style: { color: '#111' },
       types: ['attr-name'],
     },
   ],
@@ -76,15 +52,17 @@ const CodeWrapper = styled.div`
 `
 
 const Pre = styled.pre`
+  background-color: var(--color-typo-code);
   border-radius: var(--border-radius);
-  box-sizing: border-box;
+  color: var(--color-typo-primary);
   font-family: var(--font-family-mono);
-  font-size: var(--size-text-s);
-  line-height: var(--line-height-text-s);
-  margin-bottom: 1em;
-  margin-top: 0;
-  overflow-x: auto;
-  padding: var(--space-m);
+  font-size: var(--size-text-code);
+  margin: 18px 0 18px;
+  max-height: 360px;
+  overflow-wrap: normal;
+  overflow: auto;
+  overflow: scroll;
+  padding: var(--space-s) var(--space-l);
   tab-size: 4;
   white-space: pre;
   word-break: normal;

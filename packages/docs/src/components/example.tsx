@@ -8,7 +8,7 @@ const Container = styled.div`
   background: var(--color-bg-default);
   border: 1px solid var(--color-bg-border);
   box-sizing: border-box;
-  margin-bottom: 2em;
+  margin: 18px 0;
   box-shadow: 0 2px 8px var(--color-bg-border);
 `
 

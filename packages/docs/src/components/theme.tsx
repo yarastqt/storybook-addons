@@ -3,25 +3,20 @@ import { css } from '@emotion/core'
 export const theme = css`
   /* colors */
   --color-bg-default: #fff;
-  --color-bg-border: #f2f2f2;
-  --color-bg-stripe: #fafafa;
-  --color-bg-ghost: #ebebeb;
-  --color-bg-code: #f8f8f8;
-  --color-bg-warning: #fff7df;
+  --color-bg-border: #f5f5f5;
+  --color-bg-code: #f1f1f1;
+  --color-bg-warning: #fffae7;
 
-  --color-typo-primary: #000;
-  --color-typo-secondary: rgba(0, 0, 0, 0.6);
+  --color-typo-primary: #111;
   --color-typo-code: #c41d7f;
 
-  --color-link-external: #1a0dab;
-  --color-link-hover: #d00;
-  --color-link-minor: #8589ad;
+  --color-link-external: #767676;
+  --color-link-external-hover: #111;
 
   /* units */
   --border-radius: 3px;
 
   /* spaces */
-  --space-xs: 8px;
   --space-s: 12px;
   --space-m: 16px;
   --space-l: 20px;
@@ -29,20 +24,20 @@ export const theme = css`
 
   /* text */
   --size-text-base: 16px;
-  --size-text-s: 0.85em;
-  --size-text-m: 1em;
-  --size-text-l: 1.125em;
-  --size-text-xl: 1.25em;
-  --size-text-2xl: 1.5em;
-  --size-text-3xl: 2em;
+  --size-text-code: 14px;
+  --size-text-m: 15px;
+  --size-text-l: 18px;
+  --size-text-xl: 28px;
 
-  --line-height-text-xs: 1.2em;
-  --line-height-text-s: 1.4em;
-  --line-height-text-m: 1.5em;
+  --line-height-text-xxs: 1;
+  --line-height-text-xs: 1.2;
+  --line-height-text-s: 1.4;
+  --line-height-text-m: 1.6;
 
   /* typography */
-  --font-family-mono: Menlo, Monaco, monospace;
+  --font-family: -apple-system, system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-family-mono: Menlo, monospace;
 
-  --weight-semibold: 500;
-  --weight-bold: 600;
+  --weight-normal: 100;
+  --weight-bold: 700;
 `

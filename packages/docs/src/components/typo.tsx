@@ -7,80 +7,75 @@ export const typo = css`
   h4,
   h5 {
     font-weight: var(--weight-bold);
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: -0.05em;
-    line-height: var(--line-height-text-xs);
   }
 
-  h1:hover .anchor::before,
-  h2:hover .anchor::before,
-  h3:hover .anchor::before,
-  h4:hover .anchor::before,
-  h5:hover .anchor::before {
-    visibility: visible;
+  h1:hover .anchor,
+  h2:hover .anchor,
+  h3:hover .anchor,
+  h4:hover .anchor,
+  h5:hover .anchor {
+    opacity: 1;
   }
 
   h1 {
-    font-size: var(--size-text-3xl);
+    font-size: var(--size-text-xl);
+    line-height: var(--line-height-text-s);
+    margin-bottom: 18px;
   }
 
   h2 {
-    font-size: var(--size-text-2xl);
+    font-size: var(--size-text-xl);
+    line-height: var(--line-height-text-xs);
+    padding-top: 36px;
+    margin: 36px 0 18px;
+    border-top: 1px solid var(--color-bg-border);
   }
 
   h3 {
-    font-size: var(--size-text-xl);
-  }
-
-  h4 {
     font-size: var(--size-text-l);
+    margin: 52px 0 6px;
   }
 
+  h4,
   h5 {
     font-size: var(--size-text-m);
+    line-height: var(--line-height-text-xxs);
+    margin-top: 36px;
   }
 
   .anchor {
     float: left;
-    margin-left: -24px;
-    opacity: 0.4;
-    transition: opacity 50ms ease-in-out;
-    color: var(--color-link-minor);
+    margin-left: -36px;
+    padding: 0 10px;
+    opacity: 0;
+    transition: opacity 100ms ease-in-out;
 
-    &:hover {
+    &:hover::before {
       opacity: 1;
     }
   }
 
   .anchor::before {
-    content: '#';
+    content: '';
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.075 8.449a1 1 0 0 1-1.63 1.158 4 4 0 0 1 .434-5.142L8.886 1.46a4 4 0 0 1 5.657 5.657l-.707.707A1 1 0 0 1 12.42 6.41l.707-.707A2 2 0 1 0 10.3 2.874L7.294 5.88a2 2 0 0 0-.22 2.57zm1.848-.901a1 1 0 1 1 1.627-1.164 4 4 0 0 1-.428 5.152l-3.005 3.005A4 4 0 1 1 1.46 8.886l.707-.707a1 1 0 1 1 1.414 1.414l-.707.707a2 2 0 1 0 2.829 2.828l3.005-3.005a2 2 0 0 0 .215-2.574z' fill='%23000000'%3E%3C/path%3E%3C/svg%3E");
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    opacity: 0.5;
+    transition: opacity 100ms ease-in-out;
+    vertical-align: middle;
   }
 
   p,
   blockquote,
   ul,
   ol {
-    margin-bottom: 2em;
-    margin-top: 0;
+    margin: 9px 0;
   }
 
   ul,
   ol {
-    padding-left: 2em;
-  }
-
-  ul p,
-  ol p {
-    margin-top: 1em;
-    margin-bottom: 1em;
-  }
-
-  ol ol,
-  ol ul,
-  ul ol,
-  ul ul {
-    margin-bottom: 0;
+    padding-left: 32px;
   }
 
   blockquote {
@@ -103,61 +98,43 @@ export const typo = css`
   code {
     background-color: var(--color-bg-code);
     border-radius: var(--border-radius);
-    font-family: var(--font-family-mono);
-    color: var(--color-typo-code);
     display: inline;
-    vertical-align: baseline;
-    font-size: var(--size-text-s);
-    padding: 3px 5px;
+    font-family: var(--font-family-mono);
+    font-size: 90%;
+    padding: 2px 4px;
   }
 
   a {
     color: var(--color-link-external);
-    text-decoration: none;
-    transition: color 50ms ease-in-out;
+    text-decoration: underline;
+    transition: color 100ms ease-in-out;
 
     &:hover {
-      color: var(--color-link-hover);
+      color: var(--color-link-external-hover);
     }
   }
 
   table {
-    background-color: var(--color-bg-default);
     border-collapse: collapse;
     border-spacing: 0;
-    display: block;
-    margin-bottom: 1em;
-    margin-top: 0;
-    overflow: auto;
+    border: 1px solid var(--color-bg-border);
+    margin: 18px 0;
   }
 
   table td,
   table th {
-    border: 1px solid var(--color-bg-border);
-    border-width: 1px 0;
-    padding: 6px 12px;
     text-align: left;
-    vertical-align: baseline;
-  }
-
-  table td:first-child,
-  table th:first-child {
-    border-left-width: 1px;
-  }
-
-  table td:last-child,
-  table th:last-child {
-    border-right-width: 1px;
+    vertical-align: top;
+    padding: 6px;
+    border: 1px solid var(--color-bg-border);
   }
 
   table th {
-    background-color: var(--color-bg-stripe);
     border-bottom-width: 2px;
-    color: var(--color-typo-secondary);
-    font-weight: var(--weight-semibold);
   }
 
   img {
     max-width: 100%;
+    margin: 9px 0;
   }
 `
