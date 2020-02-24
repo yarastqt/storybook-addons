@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const SkeletonContent = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="960" height="545" viewBox="0 0 960 545">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 545">
     <g fill="#f5f5f5" fillRule="evenodd">
       <rect width="600" height="113" y="144" rx="3" />
       <rect width="300" height="32" rx="3" />
