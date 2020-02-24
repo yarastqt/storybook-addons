@@ -76,10 +76,13 @@ export const CodeHighlighter: FC<CodeHighlighterType> = ({ value, language }) =>
     copy(value)
   }, [value])
 
+  // Prism not parse tsx syntax, so we replace to ts.
+  const normalizedLanguage = language.replace('tsx', 'ts') as Language
+
   // TODO: remove style and take colors from css vars.
   return (
     <CodeWrapper>
-      <Highlight {...defaultProps} theme={theme} code={value} language={language}>
+      <Highlight {...defaultProps} theme={theme} code={value} language={normalizedLanguage}>
         {({ style, tokens, getLineProps, getTokenProps }) => (
           <Pre style={style}>
             {tokens.map((line, i) => (
