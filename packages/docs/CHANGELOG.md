@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.5.0...@storybook-addons/docs@1.6.0) (2020-02-29)
+
+### Bug Fixes
+
+- normalize tsx lang for code highlight ([919b769](https://github.com/yarastqt/storybook-addons/commit/919b769))
+- set skeleton adaptive ([22cba9f](https://github.com/yarastqt/storybook-addons/commit/22cba9f))
+- update tip for empty content ([c3a1ece](https://github.com/yarastqt/storybook-addons/commit/c3a1ece))
+- **docs:** fix copy-button height and paddings ([aa7195b](https://github.com/yarastqt/storybook-addons/commit/aa7195b))
+- **docs:** fix layout sizes ([060c153](https://github.com/yarastqt/storybook-addons/commit/060c153))
+- **docs:** inc margin for sidebar menu items ([59a8f96](https://github.com/yarastqt/storybook-addons/commit/59a8f96))
+- **docs:** remove iframe from tab order ([5956cf6](https://github.com/yarastqt/storybook-addons/commit/5956cf6))
+- **docs:** reset margin-bottom for last chilld ([f90b1d5](https://github.com/yarastqt/storybook-addons/commit/f90b1d5))
+- **docs:** set visible anchor in focus ([80334ec](https://github.com/yarastqt/storybook-addons/commit/80334ec))
+
+### Features
+
+- **docs:** add outline for all links ([aa6384b](https://github.com/yarastqt/storybook-addons/commit/aa6384b))
+- **docs:** add pulse animation for skeleton ([271618d](https://github.com/yarastqt/storybook-addons/commit/271618d))
+
 # [1.5.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.4.3...@storybook-addons/docs@1.5.0) (2020-02-23)
 
 ### Bug Fixes
