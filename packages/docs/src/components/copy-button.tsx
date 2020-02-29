@@ -6,11 +6,11 @@ const Button = styled.button`
   background: none;
   cursor: pointer;
   transition: opacity 100ms ease-in-out;
-  padding: 0;
-  height: 40px;
+  padding: 0 16px;
+  height: 42px;
   position: absolute;
   top: 0;
-  right: 16px;
+  right: 0;
   transform: translateZ(0);
 
   &:hover {
