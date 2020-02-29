@@ -59,7 +59,7 @@ const NavigationList = styled.ul`
 `
 
 const NavigationItem = styled.li<{ level: number }>`
-  margin: ${(props) => (props.level === 2 ? `12px 0` : `4px 0 4px 12px`)};
+  margin: ${(props) => (props.level === 2 ? `12px 0` : `8px 0 8px 12px`)};
 `
 
 const NavigationLink = styled.a<{ level: number }>`
