@@ -31,5 +31,5 @@ export const ExampleFrame: FC<ExampleFrameProps> = ({ storyId, visible }) => {
     }, FRAME_TICK)
   }, [])
 
-  return <Frame onLoad={onLoad} src={`iframe.html?id=${storyId}&embeded=true`} />
+  return <Frame tabIndex={-1} onLoad={onLoad} src={`iframe.html?id=${storyId}&embeded=true`} />
 }
