@@ -112,6 +112,10 @@ export const typo = css`
     &:hover {
       color: var(--color-link-external-hover);
     }
+
+    &:focus {
+      outline: 2px solid var(--color-typo-primary);
+    }
   }
 
   table {

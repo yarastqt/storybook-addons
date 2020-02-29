@@ -72,6 +72,10 @@ const NavigationLink = styled.a<{ level: number }>`
   &:hover {
     color: var(--color-link-external-hover);
   }
+
+  &:focus {
+    outline: 2px solid var(--color-typo-primary);
+  }
 `
 
 export type DocsPanelProps = {
