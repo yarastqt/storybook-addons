@@ -26,22 +26,26 @@ const Wrapper = styled.div`
   align-items: flex-start;
   width: 960px;
   margin: 0 auto;
-  padding: 24px 32px;
+  padding: 24px 16px 64px;
 `
 
 const Content = styled.div`
   ${typo}
-  width: 750px;
-  flex: 1 1 auto;
+  width: 720px;
+  flex: 1 0 auto;
 
   > :first-child {
     margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
   }
 `
 
 const Navigation = styled.div`
   margin-left: var(--space-xl);
-  flex: 1 0 240px;
+  flex: 1 1 240px;
   position: sticky;
   top: 0;
 `
