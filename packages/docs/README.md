@@ -1,5 +1,11 @@
 # @storybook-addons/docs &middot; [![npm (scoped)](https://img.shields.io/npm/v/@storybook-addons/docs.svg)](https://www.npmjs.com/package/@storybook-addons/docs)
 
+Storybook addon for collect your documentation from project and components with the ability to embed [examples](#inline-stories) or [placeholders](#placeholders) in documentation (live [example](https://storybook-addons.now.sh/docs)).
+
+<p align="center">
+  <img height="500" src="https://user-images.githubusercontent.com/7934638/75613474-3183a600-5b3f-11ea-9fc4-021463781803.png">
+</p>
+
 ## Install
 
 ```bash
@@ -80,6 +86,8 @@ storiesOf('ComponentName', module)
 
 ### Inline stories
 
+Your can embeded single or multipile stories (with tabs) in documentation:
+
 ```markdown
 <!-- single story -->
 
@@ -91,6 +99,8 @@ storiesOf('ComponentName', module)
 ```
 
 ### Placeholders
+
+If necessary you can embedded placeholder for example other part of documentation:
 
 ```markdown
 {{%inject::placeholderName%}}
