@@ -1,7 +1,9 @@
 import React from 'react'
+import styled from '@emotion/styled'
+import { keyframes } from '@emotion/core'
 
 export const SkeletonContent = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 545">
+  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 545">
     <g fill="#f5f5f5" fillRule="evenodd">
       <rect width="600" height="113" y="144" rx="3" />
       <rect width="300" height="32" rx="3" />
@@ -20,5 +22,14 @@ export const SkeletonContent = () => (
       <rect width="200" height="32" x="760" y="180" rx="3" />
       <rect width="200" height="32" x="760" y="225" rx="3" />
     </g>
-  </svg>
+  </Svg>
 )
+
+const pulse = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: .4; }
+`
+
+const Svg = styled.svg`
+  animation: ${pulse} 1.5s ease-in-out infinite;
+`
