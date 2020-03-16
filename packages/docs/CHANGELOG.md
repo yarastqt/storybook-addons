@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.6.0...@storybook-addons/docs@1.6.1) (2020-03-16)
+
+### Bug Fixes
+
+- **docs:** use fallback lang for CodeHighlighter ([fac897b](https://github.com/yarastqt/storybook-addons/commit/fac897b))
+
 # [1.6.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.5.0...@storybook-addons/docs@1.6.0) (2020-02-29)
 
 ### Bug Fixes
