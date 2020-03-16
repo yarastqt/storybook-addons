@@ -71,7 +71,7 @@ const Pre = styled.pre`
 `
 
 // TODO: Add line highlight.
-export const CodeHighlighter: FC<CodeHighlighterType> = ({ value, language }) => {
+export const CodeHighlighter: FC<CodeHighlighterType> = ({ value, language = '' }) => {
   const onCopyClick = useCallback(() => {
     copy(value)
   }, [value])
