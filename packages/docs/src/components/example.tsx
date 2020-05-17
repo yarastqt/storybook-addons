@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, Fragment } from 'react'
 import styled from '@emotion/styled'
 
 import { useDocsContext } from '../docs-context'
@@ -46,8 +46,8 @@ export const Example: FC<ExampleProps> = ({ examples }) => {
         </Actions>
       </Toolbar>
       {examples.map(({ storyId }, index) => (
-        <>
-          <Content key={storyId} active={index === activeTab}>
+        <Fragment key={storyId}>
+          <Content active={index === activeTab}>
             <ExampleFrame storyId={storyId} visible={index === activeTab} />
           </Content>
           {showSource && (
@@ -57,7 +57,7 @@ export const Example: FC<ExampleProps> = ({ examples }) => {
               storySource={docsContext.parameters.storySource}
             />
           )}
-        </>
+        </Fragment>
       ))}
     </Container>
   )
@@ -121,7 +121,7 @@ const Toolbar = styled.div`
 
 const Actions = styled.div`
   margin-left: auto;
-  margin-right: 16px;
+  margin-right: 8px;
   display: flex;
 `
 
