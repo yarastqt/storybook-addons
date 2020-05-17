@@ -51,9 +51,13 @@ export const IframeLoader: FC<IframeLoaderProps> = ({ queryPrefix = 'path', src,
   })
 
   // prettier-ignore
-  const onLoad = useCallback(() => {
+  const onLoad = useCallback((event) => {
+    if (htmlOnLoad !== undefined) {
+      htmlOnLoad(event as any)
+    }
+
     window.addEventListener('message', onMessage)
-  }, [])
+  }, [htmlOnLoad])
 
   // eslint-disable-next-line jsx-a11y/iframe-has-title
   return <iframe {...props} src={source} onLoad={onLoad} />
