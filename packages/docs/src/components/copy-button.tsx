@@ -12,6 +12,7 @@ const Button = styled.button`
   top: 0;
   right: 0;
   transform: translateZ(0);
+  outline: none;
 
   &:hover {
     opacity: 0.5;
