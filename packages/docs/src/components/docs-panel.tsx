@@ -171,7 +171,7 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
             <NavigationList>
               {navigation.map((link) => (
                 <NavigationItem key={link.url} level={link.level}>
-                  <NavigationLink level={link.level} href={link.url}>
+                  <NavigationLink level={link.level} href={link.url} target="_self">
                     {link.text}
                   </NavigationLink>
                 </NavigationItem>
