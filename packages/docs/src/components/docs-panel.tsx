@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState, useRef, memo } from 'react'
-import { API } from '@storybook/api'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
 
 import { Link, processMarkdownHeading } from '../lib/process-markdown-heading'
-import { ADD_README } from '../constants'
-import { PARAM_KEY, DocsxParams, defaultParams } from '../params'
+import { unescapeMarkdownSpecific } from '../lib/unescape-markdown-specific'
+import { injectMarkdownPlaceholders } from '../lib/inject-markdown-placeholders'
+import { DocsContextProps, DocsContextProvider } from '../docs-context'
 import { SkeletonContent } from './skeleton-content'
 import { EmptyContent } from './empty-content'
 import { typo } from './typo'
@@ -79,8 +79,7 @@ const NavigationLink = styled.a<{ level: number }>`
 `
 
 export type DocsPanelProps = {
-  active: boolean
-  api: API
+  context: DocsContextProps
 }
 
 type DocsPanelContent = {
@@ -88,19 +87,20 @@ type DocsPanelContent = {
   navigation: Link[]
 }
 
-export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
-  const currentStoryData = api.getCurrentStoryData() || {}
-  const userParams = api.getParameters(currentStoryData.id, PARAM_KEY) || {}
-  const { enableNavigation }: DocsxParams = { ...defaultParams, ...userParams }
-
+// FIXME: Add content in cache when change story in current kind.
+export const DocsPanelView: FC<DocsPanelProps> = ({ context }) => {
   const isFirstRender = useRef(true)
   const [shownSkeleton, setShownSkeleton] = useState(true)
+  // eslint-disable-next-line react/destructuring-assignment
+  const { enableNavigation = true, readme = '', placeholders } = context.parameters.docs || {}
+  const rawMarkdown = typeof readme === 'string' ? readme : readme.default
 
   const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
     content: undefined,
     navigation: [],
   })
 
+  // FIXME: Don't work with new api with iframe.
   useEffect(() => {
     if (window.location.hash !== '') {
       const hash = decodeURIComponent(window.location.hash)
@@ -109,31 +109,27 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
         element.scrollIntoView()
       }
     }
-  })
+  }, [])
 
   useEffect(() => {
-    const onAddReadme = ({ content: markdown }: any) => {
-      const links: Link[] = []
-      const processedContent = processMarkdownHeading({
-        markdown,
-        onVisit: ({ text, ...link }) => links.push({ ...link, text: text.replace(/`/g, '') }),
+    let markdown = rawMarkdown
+    markdown = unescapeMarkdownSpecific(markdown)
+    markdown = injectMarkdownPlaceholders(markdown, placeholders)
+
+    const links: Link[] = []
+    const processedContent = processMarkdownHeading({
+      markdown,
+      onVisit: ({ text, ...link }) => links.push({ ...link, text: text.replace(/`/g, '') }),
+    })
+
+    if (content !== processedContent) {
+      setContent({
+        content: processedContent,
+        // eslint-disable-next-line no-magic-numbers
+        navigation: links.filter((link) => link.level > 1 && link.level < 4),
       })
-
-      if (content !== processedContent) {
-        setContent({
-          content: processedContent,
-          // eslint-disable-next-line no-magic-numbers
-          navigation: links.filter((link) => link.level > 1 && link.level < 4),
-        })
-      }
     }
-
-    api.on(ADD_README, onAddReadme)
-
-    return () => {
-      api.off(ADD_README, onAddReadme)
-    }
-  }, [content, api])
+  }, [rawMarkdown])
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -142,10 +138,6 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
       setShownSkeleton(Boolean(content))
     }
   }, [content])
-
-  if (!active) {
-    return null
-  }
 
   if (!content) {
     return (
@@ -164,7 +156,9 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
     <Markdown>
       <Wrapper>
         <Content>
-          <ReactMarkdown escapeHtml={false} renderers={markdownRenderers} source={content} />
+          <DocsContextProvider value={context}>
+            <ReactMarkdown escapeHtml={false} renderers={markdownRenderers} source={content} />
+          </DocsContextProvider>
         </Content>
         {enableNavigation && (
           <Navigation>
