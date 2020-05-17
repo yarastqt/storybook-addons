@@ -23,7 +23,6 @@
   "dependencies": {
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
-    "@storybook-addons/sync-external-url": "^1.1.4",
     "@storybook/addons": "^5.1.9",
     "@storybook/api": "^5.1.9",
     "@storybook/core-events": "^5.1.11",
