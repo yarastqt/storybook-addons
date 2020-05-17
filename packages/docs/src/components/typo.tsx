@@ -93,7 +93,7 @@ export const typo = css`
     margin-bottom: 0;
   }
 
-  blockquote > :first-child {
+  blockquote > :first-of-type {
     margin-top: 0;
   }
 

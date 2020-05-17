@@ -34,7 +34,7 @@ const Content = styled.div`
   width: 720px;
   flex: 1 0 auto;
 
-  > :first-child {
+  > :first-of-type {
     margin-top: 0;
   }
 
