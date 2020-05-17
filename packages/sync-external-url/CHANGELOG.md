@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/sync-external-url@1.1.2...@storybook-addons/sync-external-url@1.1.3) (2020-05-17)
+
+### Bug Fixes
+
+- **sync-external-url:** add onLoad handler ([dbeeba8](https://github.com/yarastqt/storybook-addons/commit/dbeeba8))
+- **sync-external-url:** fix memory leak ([aa94b1b](https://github.com/yarastqt/storybook-addons/commit/aa94b1b))
+
 ## [1.1.2](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/sync-external-url@1.1.1...@storybook-addons/sync-external-url@1.1.2) (2020-02-08)
 
 ### Bug Fixes
