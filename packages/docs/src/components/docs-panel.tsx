@@ -91,6 +91,7 @@ type DocsPanelContent = {
 export const DocsPanelView: FC<DocsPanelProps> = ({ context }) => {
   const isFirstRender = useRef(true)
   const [shownSkeleton, setShownSkeleton] = useState(true)
+  // @ts-ignore (FIXME: Fix ts issue for init values.)
   // eslint-disable-next-line react/destructuring-assignment
   const { enableNavigation = true, readme = '', placeholders } = context.parameters.docs || {}
   const rawMarkdown = typeof readme === 'string' ? readme : readme.default
