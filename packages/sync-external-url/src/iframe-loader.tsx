@@ -1,4 +1,4 @@
-import React, { FC, IframeHTMLAttributes, useMemo, useCallback, useEffect } from 'react'
+import React, { FC, IframeHTMLAttributes, useMemo, useEffect } from 'react'
 import qs from 'query-string'
 
 import { UPDATE } from './constants'
@@ -18,12 +18,7 @@ type IframeLoaderProps = IframeHtmlProps & {
   src: string
 }
 
-export const IframeLoader: FC<IframeLoaderProps> = ({
-  queryPrefix = 'path',
-  src,
-  onLoad: htmlOnLoad,
-  ...props
-}) => {
+export const IframeLoader: FC<IframeLoaderProps> = ({ queryPrefix = 'path', src, ...props }) => {
   const source = useMemo(() => {
     const queryData = qs.parse(window.location.search)
     const urlData = qs.parseUrl(src)
@@ -34,36 +29,32 @@ export const IframeLoader: FC<IframeLoaderProps> = ({
     return `${urlData.url}?${query}`
   }, [queryPrefix, src])
 
-  // prettier-ignore
-  const onMessage = useCallback((message: any) => {
-    if (message.data === '') {
-      return
-    }
-    const data = JSON.parse(message.data)
-    if (data.method === UPDATE) {
-      const urlData = qs.parseUrl(window.location.href)
-      urlData.query[queryPrefix] = data.payload.path
-      const nextQuery = qs.stringify(urlData.query)
-      const nextUrl = `${urlData.url}?${nextQuery}`
-      window.history.replaceState(null, '', nextUrl)
-    }
-  }, [queryPrefix])
-
   useEffect(() => {
-    return () => {
-      window.removeEventListener('message', onMessage)
-    }
-  })
-
-  // prettier-ignore
-  const onLoad = useCallback((event) => {
-    if (htmlOnLoad !== undefined) {
-      htmlOnLoad(event as any)
+    const onMessage = (message: { data: string }) => {
+      if (message.data === '') {
+        return
+      }
+      try {
+        const data = JSON.parse(message.data)
+        if (data.method === UPDATE) {
+          const urlData = qs.parseUrl(window.location.href)
+          urlData.query[queryPrefix] = data.payload.path
+          const nextQuery = qs.stringify(urlData.query)
+          const nextUrl = `${urlData.url}?${nextQuery}`
+          window.history.replaceState(null, '', nextUrl)
+        }
+      } catch (error) {
+        // Suppress error while parsing.
+      }
     }
 
     window.addEventListener('message', onMessage)
-  }, [htmlOnLoad])
+
+    return () => {
+      window.removeEventListener('message', onMessage)
+    }
+  }, [])
 
   // eslint-disable-next-line jsx-a11y/iframe-has-title
-  return <iframe {...props} src={source} onLoad={onLoad} />
+  return <iframe {...props} src={source} />
 }
