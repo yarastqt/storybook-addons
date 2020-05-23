@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/sync-external-url@1.1.3...@storybook-addons/sync-external-url@1.1.4) (2020-05-23)
+
+### Bug Fixes
+
+- sub for message at start effect ([c031d5f](https://github.com/yarastqt/storybook-addons/commit/c031d5f))
+
 ## [1.1.3](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/sync-external-url@1.1.2...@storybook-addons/sync-external-url@1.1.3) (2020-05-17)
 
 ### Bug Fixes
