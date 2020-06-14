@@ -1,18 +1,26 @@
 import { Context, createContext, useContext } from 'react'
 
+type Location = Record<
+  'endBody' | 'endLoc' | 'startBody' | 'startLoc',
+  {
+    col: number
+    line: number
+  }
+>
+
+export type LocationsMap = Record<string, Location>
+
 export type StorySource = {
   source: string
-  locationsMap: {
-    [key: string]: {
-      [key in 'endBody' | 'endLoc' | 'startBody' | 'startLoc']: {
-        col: number
-        line: number
-      }
-    }
-  }
+  locationsMap: LocationsMap
+}
+
+export type StoryStore = {
+  fromId: (id: string) => DocsContextProps
 }
 
 export type DocsContextProps = {
+  kind: string
   parameters: {
     docs?: {
       enableNavigation?: boolean
@@ -21,6 +29,7 @@ export type DocsContextProps = {
     }
     storySource: StorySource
   }
+  storyStore: StoryStore
 }
 
 export const DocsContext: Context<DocsContextProps> = createContext({} as DocsContextProps)
