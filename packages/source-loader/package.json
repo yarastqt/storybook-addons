@@ -1,0 +1,37 @@
+{
+  "name": "@storybook-addons/source-loader",
+  "version": "0.0.0-alpha.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Source loader for storybook stories",
+  "keywords": ["storybook", "webpack", "source", "loader"],
+  "author": "Eugene Tropin <yarastqt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yarastqt/storybook-addons/issues"
+  },
+  "repository": "https://github.com/yarastqt/storybook-addons",
+  "homepage": "https://github.com/yarastqt/storybook-addons/tree/master/packages/source-loader",
+  "main": "dist/index.js",
+  "files": ["dist", "src"],
+  "scripts": {
+    "test": "exit 0",
+    "build": "rm -rf dist && tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@babel/generator": "7.9.6",
+    "@babel/parser": "7.9.6",
+    "@babel/template": "7.8.6",
+    "@babel/traverse": "7.9.6",
+    "@babel/types": "7.9.6"
+  },
+  "devDependencies": {
+    "@types/babel__generator": "7.6.1",
+    "@types/babel__parser": "7.1.1",
+    "@types/babel__template": "7.0.2",
+    "@types/babel__traverse": "7.0.11"
+  }
+}
