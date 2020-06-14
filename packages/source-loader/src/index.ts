@@ -14,8 +14,12 @@ export default function transform(source: string): string {
       const names = path.node.declaration.declarations.map(
         (declaration: any) => declaration.id.name,
       )
-      if (names.length === 1) {
-        locationsMap[names[0]] = path.node.loc
+      if (names.length === 1 && path.node.loc !== null) {
+        // Use startBody and endBody for backward compatibility with original story-loader from storybook.
+        locationsMap[names[0]] = {
+          startBody: path.node.loc.start,
+          endBody: path.node.loc.end,
+        }
       }
     },
   })
