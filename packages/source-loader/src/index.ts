@@ -5,9 +5,9 @@ import template from '@babel/template'
 import generate from '@babel/generator'
 
 // eslint-disable-next-line import/no-default-export
-export default function transform(source: any): any {
+export default function transform(source: string): string {
   const ast = parse(source, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
-  const locationsMap: { [key: string]: any } = {}
+  const locationsMap: Record<string, any> = {}
 
   traverse(ast, {
     ExportNamedDeclaration(path) {
