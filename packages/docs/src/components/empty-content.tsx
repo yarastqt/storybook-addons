@@ -6,20 +6,18 @@ import { markdownRenderers } from './markdown-renderers'
 const content = `
 # Documentation not found
 
-Add \`withDocs\` decorator in your story for adding documentation:
+For adding documentation to your story, you should add \`readme\` in \`docs\` parameters.
 
 \`\`\`js
-import { withDocs } from '@storybook-addons/docs'
+import documentation from './Component.md'
 
 export default {
   title: 'StoryKind',
-  decorators: [
-    withDocs({
-      readme: {
-        content: require('./Component.md').default,
-      },
-    }),
-  ],
+  parameters: {
+    docs: {
+      readme: documentation,
+    },
+  }
 }
 \`\`\`
 
