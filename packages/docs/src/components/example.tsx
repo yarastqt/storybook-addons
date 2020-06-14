@@ -54,7 +54,7 @@ export const Example: FC<ExampleProps> = ({ examples }) => {
             <ExampleSource
               active={index === activeTab}
               storyId={storyId}
-              storySource={docsContext.parameters.storySource}
+              storyStore={docsContext.storyStore}
             />
           )}
         </Fragment>
