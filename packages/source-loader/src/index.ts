@@ -56,7 +56,7 @@ export default function transform(source: string): string {
               : maybeParamNode.value
             maybeParamNode.value = t.callExpression(
               t.memberExpression(t.identifier('Object'), t.identifier('assign')),
-              [extendableArgument, t.identifier('__source__')],
+              [t.objectExpression([]), extendableArgument, t.identifier('__source__')],
             )
           }
         } else {
