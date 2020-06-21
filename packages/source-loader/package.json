@@ -26,12 +26,16 @@
     "@babel/parser": "7.9.6",
     "@babel/template": "7.8.6",
     "@babel/traverse": "7.9.6",
-    "@babel/types": "7.9.6"
+    "@babel/types": "7.9.6",
+    "loader-utils": "2.0.0",
+    "prettier": "2.0.5"
   },
   "devDependencies": {
     "@types/babel__generator": "7.6.1",
     "@types/babel__parser": "7.1.1",
     "@types/babel__template": "7.0.2",
-    "@types/babel__traverse": "7.0.11"
+    "@types/babel__traverse": "7.0.11",
+    "@types/loader-utils": "2.0.1",
+    "@types/prettier": "2.0.1"
   }
 }
