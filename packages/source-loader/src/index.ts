@@ -1,3 +1,5 @@
+import { getOptions } from 'loader-utils'
+import { Options, format } from 'prettier'
 import * as t from '@babel/types'
 import { parse } from '@babel/parser'
 import traverse from '@babel/traverse'
@@ -11,9 +13,24 @@ function toParamCase(value: string): string {
     .toLowerCase()
 }
 
+function formatSource(source: string, options?: Options): string {
+  return format(source, {
+    parser: 'typescript',
+    printWidth: 80,
+    semi: false,
+    singleQuote: true,
+    tabWidth: 2,
+    trailingComma: 'all',
+    ...options,
+  })
+}
+
 // eslint-disable-next-line import/no-default-export
 export default function transform(source: string): string {
-  const ast = parse(source, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
+  // @ts-ignore (Cannot infer type for `this` in current case).
+  const options: any = getOptions(this)
+  const storySource = formatSource(source, options.prettier)
+  const ast = parse(storySource, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
   const locationsMap: Record<string, any> = {}
 
   traverse(ast, {
@@ -36,7 +53,7 @@ export default function transform(source: string): string {
     var __source__ = { storySource: { source: SOURCE, locationsMap: LOCATIONS_MAP } };
   `)
   const sourceMetaAst = templateSourceMeta({
-    SOURCE: t.stringLiteral(source),
+    SOURCE: t.stringLiteral(storySource),
     LOCATIONS_MAP: t.callExpression(
       t.memberExpression(t.identifier('JSON'), t.identifier('parse')),
       [t.stringLiteral(JSON.stringify(locationsMap))],
