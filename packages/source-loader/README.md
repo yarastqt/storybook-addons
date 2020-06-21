@@ -15,18 +15,46 @@ npm i -D @storybook-addons/source-loader
 Add loader for webpack rules at before ts or babel loaders:
 
 ```js
-;[
-  {
-    test: /\.tsx/,
-    use: 'ts-loader',
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.tsx/,
+        use: 'ts-loader',
+      },
+      {
+        test: /\.examples\.tsx/,
+        use: '@storybook-addons/source-loader',
+      },
+    ],
   },
-  {
-    test: /\.examples\.tsx/,
-    use: '@storybook-addons/source-loader',
+}
+```
+
+### Options
+
+A source-loader supports [prettier][prettier] for formatting source code:
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.examples\.tsx/,
+        loader: '@storybook-addons/source-loader',
+        options: {
+          prettier: {
+            printWidth: 100,
+          },
+        },
+      },
+    ],
   },
-]
+}
 ```
 
 ## License
 
 Project is [MIT licensed](https://github.com/yarastqt/mercury/blob/master/LICENSE.md).
+
+[prettier]: https://github.com/prettier/prettier

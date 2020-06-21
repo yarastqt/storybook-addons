@@ -1,12 +1,36 @@
+import { getOptions } from 'loader-utils'
+import { Options, format } from 'prettier'
 import * as t from '@babel/types'
 import { parse } from '@babel/parser'
 import traverse from '@babel/traverse'
 import template from '@babel/template'
 import generate from '@babel/generator'
 
+function toParamCase(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/([A-Z])([A-Z])(?=[a-z])/g, '$1-$2')
+    .toLowerCase()
+}
+
+function formatSource(source: string, options?: Options): string {
+  return format(source, {
+    parser: 'typescript',
+    printWidth: 80,
+    semi: false,
+    singleQuote: true,
+    tabWidth: 2,
+    trailingComma: 'all',
+    ...options,
+  })
+}
+
 // eslint-disable-next-line import/no-default-export
 export default function transform(source: string): string {
-  const ast = parse(source, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
+  // @ts-ignore (Cannot infer type for `this` in current case).
+  const options: any = getOptions(this)
+  const storySource = formatSource(source, options.prettier)
+  const ast = parse(storySource, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
   const locationsMap: Record<string, any> = {}
 
   traverse(ast, {
@@ -15,8 +39,9 @@ export default function transform(source: string): string {
         (declaration: any) => declaration.id.name,
       )
       if (names.length === 1 && path.node.loc !== null) {
+        const exportName = toParamCase(names[0])
         // Use startBody and endBody for backward compatibility with original story-loader from storybook.
-        locationsMap[names[0]] = {
+        locationsMap[exportName] = {
           startBody: path.node.loc.start,
           endBody: path.node.loc.end,
         }
@@ -28,7 +53,7 @@ export default function transform(source: string): string {
     var __source__ = { storySource: { source: SOURCE, locationsMap: LOCATIONS_MAP } };
   `)
   const sourceMetaAst = templateSourceMeta({
-    SOURCE: t.stringLiteral(source),
+    SOURCE: t.stringLiteral(storySource),
     LOCATIONS_MAP: t.callExpression(
       t.memberExpression(t.identifier('JSON'), t.identifier('parse')),
       [t.stringLiteral(JSON.stringify(locationsMap))],
@@ -56,7 +81,7 @@ export default function transform(source: string): string {
               : maybeParamNode.value
             maybeParamNode.value = t.callExpression(
               t.memberExpression(t.identifier('Object'), t.identifier('assign')),
-              [extendableArgument, t.identifier('__source__')],
+              [t.objectExpression([]), extendableArgument, t.identifier('__source__')],
             )
           }
         } else {
