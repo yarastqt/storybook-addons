@@ -4,6 +4,13 @@ import traverse from '@babel/traverse'
 import template from '@babel/template'
 import generate from '@babel/generator'
 
+function toParamCase(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/([A-Z])([A-Z])(?=[a-z])/g, '$1-$2')
+    .toLowerCase()
+}
+
 // eslint-disable-next-line import/no-default-export
 export default function transform(source: string): string {
   const ast = parse(source, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
@@ -15,8 +22,9 @@ export default function transform(source: string): string {
         (declaration: any) => declaration.id.name,
       )
       if (names.length === 1 && path.node.loc !== null) {
+        const exportName = toParamCase(names[0])
         // Use startBody and endBody for backward compatibility with original story-loader from storybook.
-        locationsMap[names[0]] = {
+        locationsMap[exportName] = {
           startBody: path.node.loc.start,
           endBody: path.node.loc.end,
         }
