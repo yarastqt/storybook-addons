@@ -35,6 +35,7 @@ export default function transform(source: string): string {
 
   traverse(ast, {
     ExportNamedDeclaration(path) {
+      // @ts-expect-error
       const names = path.node.declaration.declarations.map(
         (declaration: any) => declaration.id.name,
       )
