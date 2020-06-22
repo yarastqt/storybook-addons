@@ -79,11 +79,11 @@ const NavigationLink = styled.a<{ level: number }>`
   }
 `
 
-export type DocsPanelProps = {
+export type DocsPageProps = {
   context: DocsContextProps
 }
 
-type DocsPanelContent = {
+type DocsPageContent = {
   content?: string
   navigation: Link[]
 }
@@ -91,7 +91,7 @@ type DocsPanelContent = {
 const kindRef = createNativeRef<any>()
 const stateRef = createNativeRef<any>({ content: null, navigation: [] })
 
-export const DocsPanel: FC<DocsPanelProps> = ({ context }) => {
+export const DocsPage: FC<DocsPageProps> = ({ context }) => {
   const { kind, parameters } = context
   const isNextKind = kindRef.current !== kind
   const isFirstRender = useRef(isNextKind)
@@ -100,7 +100,7 @@ export const DocsPanel: FC<DocsPanelProps> = ({ context }) => {
   const { enableNavigation = true, readme = '', placeholders } = parameters.docs || {}
   const rawMarkdown = typeof readme === 'string' ? readme : readme.default
 
-  const [{ content, navigation }, setContent] = useState<DocsPanelContent>(stateRef.current)
+  const [{ content, navigation }, setContent] = useState<DocsPageContent>(stateRef.current)
 
   // FIXME: Don't work with new api with iframe.
   useEffect(() => {
