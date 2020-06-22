@@ -96,7 +96,6 @@ export const DocsPage: FC<DocsPageProps> = ({ context }) => {
   const isNextKind = kindRef.current !== kind
   const isFirstRender = useRef(isNextKind)
   const [shownSkeleton, setShownSkeleton] = useState(isNextKind)
-  // @ts-ignore (FIXME: Fix ts issue for init values.)
   const { enableNavigation = true, readme = '', placeholders } = parameters.docs || {}
   const rawMarkdown = typeof readme === 'string' ? readme : readme.default
 
