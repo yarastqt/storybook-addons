@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.6.3...@storybook-addons/docs@2.0.0) (2020-06-22)
+
+### Bug Fixes
+
+- remove enhance for locations map ([e6d1a65](https://github.com/yarastqt/storybook-addons/commit/e6d1a65))
+- render new content after next kind ([4329ce3](https://github.com/yarastqt/storybook-addons/commit/4329ce3))
+- safe extract code for examples ([3bdd298](https://github.com/yarastqt/storybook-addons/commit/3bdd298))
+- **docs:** add key for fragment ([048eccf](https://github.com/yarastqt/storybook-addons/commit/048eccf))
+- **docs:** add self target for navigation links ([f8f15ad](https://github.com/yarastqt/storybook-addons/commit/f8f15ad))
+- **docs:** remove embeded flag for iframe ([ad479dd](https://github.com/yarastqt/storybook-addons/commit/ad479dd))
+- **docs:** remove outline for CopyButton ([281663d](https://github.com/yarastqt/storybook-addons/commit/281663d))
+
+### Features
+
+- remove legacy API ([968dc00](https://github.com/yarastqt/storybook-addons/commit/968dc00))
+- remove sync-external-url ([ea513f4](https://github.com/yarastqt/storybook-addons/commit/ea513f4))
+- use new no docs example ([8200aa0](https://github.com/yarastqt/storybook-addons/commit/8200aa0))
+- **docs:** add color for secondary typo ([415f228](https://github.com/yarastqt/storybook-addons/commit/415f228))
+- **docs:** add show source for example ([5e67207](https://github.com/yarastqt/storybook-addons/commit/5e67207))
+- **docs:** impl DocsContext ([406e42e](https://github.com/yarastqt/storybook-addons/commit/406e42e))
+- **docs:** impl ExampleSource ([729a31c](https://github.com/yarastqt/storybook-addons/commit/729a31c))
+- **docs:** remove old api ([0de6419](https://github.com/yarastqt/storybook-addons/commit/0de6419))
+- **docs:** use native docs ([9ae6568](https://github.com/yarastqt/storybook-addons/commit/9ae6568))
+
+### Performance Improvements
+
+- use cache for DocsPanel ([a20c79b](https://github.com/yarastqt/storybook-addons/commit/a20c79b))
+
+### BREAKING CHANGES
+
+- remove legacy API
+
 ## [1.6.3](https://github.com/yarastqt/storybook-addons/compare/@storybook-addons/docs@1.6.1...@storybook-addons/docs@1.6.3) (2020-05-23)
 
 **Note:** Version bump only for package @storybook-addons/docs
