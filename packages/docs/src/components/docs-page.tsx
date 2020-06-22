@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useRef, memo } from 'react'
+import React, { FC, useEffect, useState, useRef } from 'react'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
 
@@ -88,8 +88,9 @@ type DocsPageContent = {
   navigation: Link[]
 }
 
+const initialState = { content: undefined, navigation: [] }
 const kindRef = createNativeRef<any>()
-const stateRef = createNativeRef<any>({ content: null, navigation: [] })
+const stateRef = createNativeRef<any>()
 
 export const DocsPage: FC<DocsPageProps> = ({ context }) => {
   const { kind, parameters } = context
@@ -99,7 +100,9 @@ export const DocsPage: FC<DocsPageProps> = ({ context }) => {
   const { enableNavigation = true, readme = '', placeholders } = parameters.docs || {}
   const rawMarkdown = typeof readme === 'string' ? readme : readme.default
 
-  const [{ content, navigation }, setContent] = useState<DocsPageContent>(stateRef.current)
+  const [{ content, navigation }, setContent] = useState<DocsPageContent>(
+    isNextKind ? initialState : stateRef.current,
+  )
 
   // FIXME: Don't work with new api with iframe.
   useEffect(() => {
