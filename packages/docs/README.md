@@ -22,15 +22,15 @@ module.exports = {
 }
 ```
 
-2. Set `DocsPanel` in `preview.js` file:
+2. Set `DocsPage` in `preview.js` file:
 
 ```js
 import { addParameters } from '@storybook/react'
-import { DocsPanel } from '@storybook-addons/docs/dist/components/docs-panel'
+import { DocsPage } from '@storybook-addons/docs'
 
 addParameters({
   docs: {
-    container: DocsPanel,
+    container: DocsPage,
   },
 })
 ```
