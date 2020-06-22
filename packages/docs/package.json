@@ -36,5 +36,5 @@
   "peerDependencies": {
     "react": "^16.8.6"
   },
-  "files": ["dist", "src", "register.js"]
+  "files": ["dist", "src"]
 }
