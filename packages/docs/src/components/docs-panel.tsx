@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown/with-html'
 import { Link, processMarkdownHeading } from '../lib/process-markdown-heading'
 import { unescapeMarkdownSpecific } from '../lib/unescape-markdown-specific'
 import { injectMarkdownPlaceholders } from '../lib/inject-markdown-placeholders'
+import { createNativeRef } from '../lib/ref'
 import { DocsContextProps, DocsContextProvider } from '../docs-context'
 import { SkeletonContent } from './skeleton-content'
 import { EmptyContent } from './empty-content'
@@ -87,19 +88,19 @@ type DocsPanelContent = {
   navigation: Link[]
 }
 
-// FIXME: Add content in cache when change story in current kind.
-export const DocsPanelView: FC<DocsPanelProps> = ({ context }) => {
-  const isFirstRender = useRef(true)
-  const [shownSkeleton, setShownSkeleton] = useState(true)
+const kindRef = createNativeRef<any>()
+const stateRef = createNativeRef<any>({ content: null, navigation: [] })
+
+export const DocsPanel: FC<DocsPanelProps> = ({ context }) => {
+  const { kind, parameters } = context
+  const isNextKind = kindRef.current !== kind
+  const isFirstRender = useRef(isNextKind)
+  const [shownSkeleton, setShownSkeleton] = useState(isNextKind)
   // @ts-ignore (FIXME: Fix ts issue for init values.)
-  // eslint-disable-next-line react/destructuring-assignment
-  const { enableNavigation = true, readme = '', placeholders } = context.parameters.docs || {}
+  const { enableNavigation = true, readme = '', placeholders } = parameters.docs || {}
   const rawMarkdown = typeof readme === 'string' ? readme : readme.default
 
-  const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
-    content: undefined,
-    navigation: [],
-  })
+  const [{ content, navigation }, setContent] = useState<DocsPanelContent>(stateRef.current)
 
   // FIXME: Don't work with new api with iframe.
   useEffect(() => {
@@ -113,6 +114,10 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ context }) => {
   }, [])
 
   useEffect(() => {
+    if (!isNextKind) {
+      return
+    }
+
     let markdown = rawMarkdown
     markdown = unescapeMarkdownSpecific(markdown)
     markdown = injectMarkdownPlaceholders(markdown, placeholders)
@@ -123,22 +128,25 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ context }) => {
       onVisit: ({ text, ...link }) => links.push({ ...link, text: text.replace(/`/g, '') }),
     })
 
-    if (content !== processedContent) {
-      setContent({
-        content: processedContent,
-        // eslint-disable-next-line no-magic-numbers
-        navigation: links.filter((link) => link.level > 1 && link.level < 4),
-      })
+    stateRef.current = {
+      content: processedContent,
+      // eslint-disable-next-line no-magic-numbers
+      navigation: links.filter((link) => link.level > 1 && link.level < 4),
     }
+
+    setContent(stateRef.current)
   }, [rawMarkdown])
 
   useEffect(() => {
+    if (kindRef.current !== kind) {
+      kindRef.current = kind
+    }
     if (isFirstRender.current) {
       isFirstRender.current = false
     } else {
       setShownSkeleton(Boolean(content))
     }
-  }, [content])
+  }, [])
 
   if (!content) {
     return (
@@ -178,5 +186,3 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ context }) => {
     </Markdown>
   )
 }
-
-export const DocsPanel = memo(DocsPanelView)
