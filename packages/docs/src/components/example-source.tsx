@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react'
 import styled from '@emotion/styled'
 
-import { extractStorySource, enhanceLocationsMap } from '../lib/story-source'
+import { extractStorySource } from '../lib/story-source'
 import { StoryStore } from '../docs-context'
 import { CodeHighlighter } from './code-highlighter'
 
@@ -13,10 +13,7 @@ export const ExampleSource: FC<{
   const code = useMemo(() => {
     const data = storyStore.fromId(storyId)
     if (data !== null && data.parameters.storySource !== undefined) {
-      return extractStorySource(storyId, {
-        source: data.parameters.storySource.source,
-        locationsMap: enhanceLocationsMap(data.kind, data.parameters.storySource.locationsMap),
-      })
+      return extractStorySource(storyId, data.parameters.storySource)
     }
     return null
   }, [storyStore, storyId])

@@ -1,13 +1,18 @@
-import { StorySource, LocationsMap } from '../docs-context'
+import { StorySource } from '../docs-context'
+
+function storyIdToSanitizedStoryName(id: string): string {
+  return id.replace(/^.*?--/, '')
+}
 
 export const extractStorySource = (storyId: string, storySource: StorySource): string | null => {
+  const targetId = storyIdToSanitizedStoryName(storyId)
   if (storySource === undefined) {
     return null
   }
   if (!storySource.locationsMap) {
     return storySource.source
   }
-  const location = storySource.locationsMap[storyId]
+  const location = storySource.locationsMap[targetId]
   // FIXME: bad locationsMap generated for module export functions whose titles are overridden
   if (!location) return null
   const { startBody: start, endBody: end } = location
@@ -27,29 +32,4 @@ export const extractStorySource = (storyId: string, storySource: StorySource): s
     ...lines.slice(start.line, end.line - 1),
     endLine.substring(0, end.col),
   ].join('\n')
-}
-
-function sanitize(string: string): string {
-  return (
-    string
-      .toLowerCase()
-      // eslint-disable-next-line no-useless-escape
-      .replace(/[ ’–—―′¿'`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-+/, '')
-      .replace(/-+$/, '')
-  )
-}
-
-function toId(kind: string, name: string): string {
-  return `${sanitize(kind)}--${sanitize(name)}`
-}
-
-export function enhanceLocationsMap(kind: string, locationsMap: LocationsMap): LocationsMap {
-  const result: LocationsMap = {}
-  // eslint-disable-next-line guard-for-in
-  for (const key in locationsMap) {
-    result[toId(kind, key)] = locationsMap[key]
-  }
-  return result
 }
