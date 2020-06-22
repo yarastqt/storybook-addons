@@ -1,11 +1,12 @@
-import React, { FC, useEffect, useState, useRef, memo } from 'react'
-import { API } from '@storybook/api'
+import React, { FC, useEffect, useState, useRef } from 'react'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
 
 import { Link, processMarkdownHeading } from '../lib/process-markdown-heading'
-import { ADD_README } from '../constants'
-import { PARAM_KEY, DocsxParams, defaultParams } from '../params'
+import { unescapeMarkdownSpecific } from '../lib/unescape-markdown-specific'
+import { injectMarkdownPlaceholders } from '../lib/inject-markdown-placeholders'
+import { createNativeRef } from '../lib/ref'
+import { DocsContextProps, DocsContextProvider } from '../docs-context'
 import { SkeletonContent } from './skeleton-content'
 import { EmptyContent } from './empty-content'
 import { typo } from './typo'
@@ -34,7 +35,7 @@ const Content = styled.div`
   width: 720px;
   flex: 1 0 auto;
 
-  > :first-child {
+  > :first-of-type {
     margin-top: 0;
   }
 
@@ -78,29 +79,32 @@ const NavigationLink = styled.a<{ level: number }>`
   }
 `
 
-export type DocsPanelProps = {
-  active: boolean
-  api: API
+export type DocsPageProps = {
+  context: DocsContextProps
 }
 
-type DocsPanelContent = {
+type DocsPageContent = {
   content?: string
   navigation: Link[]
 }
 
-export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
-  const currentStoryData = api.getCurrentStoryData() || {}
-  const userParams = api.getParameters(currentStoryData.id, PARAM_KEY) || {}
-  const { enableNavigation }: DocsxParams = { ...defaultParams, ...userParams }
+const initialState = { content: undefined, navigation: [] }
+const kindRef = createNativeRef<any>()
+const stateRef = createNativeRef<any>()
 
-  const isFirstRender = useRef(true)
-  const [shownSkeleton, setShownSkeleton] = useState(true)
+export const DocsPage: FC<DocsPageProps> = ({ context }) => {
+  const { kind, parameters } = context
+  const isNextKind = kindRef.current !== kind
+  const isFirstRender = useRef(isNextKind)
+  const [shownSkeleton, setShownSkeleton] = useState(isNextKind)
+  const { enableNavigation = true, readme = '', placeholders } = parameters.docs || {}
+  const rawMarkdown = typeof readme === 'string' ? readme : readme.default
 
-  const [{ content, navigation }, setContent] = useState<DocsPanelContent>({
-    content: undefined,
-    navigation: [],
-  })
+  const [{ content, navigation }, setContent] = useState<DocsPageContent>(
+    isNextKind ? initialState : stateRef.current,
+  )
 
+  // FIXME: Don't work with new api with iframe.
   useEffect(() => {
     if (window.location.hash !== '') {
       const hash = decodeURIComponent(window.location.hash)
@@ -109,43 +113,42 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
         element.scrollIntoView()
       }
     }
-  })
+  }, [])
 
   useEffect(() => {
-    const onAddReadme = ({ content: markdown }: any) => {
-      const links: Link[] = []
-      const processedContent = processMarkdownHeading({
-        markdown,
-        onVisit: ({ text, ...link }) => links.push({ ...link, text: text.replace(/`/g, '') }),
-      })
-
-      if (content !== processedContent) {
-        setContent({
-          content: processedContent,
-          // eslint-disable-next-line no-magic-numbers
-          navigation: links.filter((link) => link.level > 1 && link.level < 4),
-        })
-      }
+    if (!isNextKind) {
+      return
     }
 
-    api.on(ADD_README, onAddReadme)
+    let markdown = rawMarkdown
+    markdown = unescapeMarkdownSpecific(markdown)
+    markdown = injectMarkdownPlaceholders(markdown, placeholders)
 
-    return () => {
-      api.off(ADD_README, onAddReadme)
+    const links: Link[] = []
+    const processedContent = processMarkdownHeading({
+      markdown,
+      onVisit: ({ text, ...link }) => links.push({ ...link, text: text.replace(/`/g, '') }),
+    })
+
+    stateRef.current = {
+      content: processedContent,
+      // eslint-disable-next-line no-magic-numbers
+      navigation: links.filter((link) => link.level > 1 && link.level < 4),
     }
-  }, [content, api])
+
+    setContent(stateRef.current)
+  }, [rawMarkdown])
 
   useEffect(() => {
+    if (kindRef.current !== kind) {
+      kindRef.current = kind
+    }
     if (isFirstRender.current) {
       isFirstRender.current = false
     } else {
       setShownSkeleton(Boolean(content))
     }
-  }, [content])
-
-  if (!active) {
-    return null
-  }
+  }, [])
 
   if (!content) {
     return (
@@ -164,14 +167,16 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
     <Markdown>
       <Wrapper>
         <Content>
-          <ReactMarkdown escapeHtml={false} renderers={markdownRenderers} source={content} />
+          <DocsContextProvider value={context}>
+            <ReactMarkdown escapeHtml={false} renderers={markdownRenderers} source={content} />
+          </DocsContextProvider>
         </Content>
         {enableNavigation && (
           <Navigation>
             <NavigationList>
               {navigation.map((link) => (
                 <NavigationItem key={link.url} level={link.level}>
-                  <NavigationLink level={link.level} href={link.url}>
+                  <NavigationLink level={link.level} href={link.url} target="_self">
                     {link.text}
                   </NavigationLink>
                 </NavigationItem>
@@ -183,5 +188,3 @@ export const DocsPanelView: FC<DocsPanelProps> = ({ api, active }) => {
     </Markdown>
   )
 }
-
-export const DocsPanel = memo(DocsPanelView)

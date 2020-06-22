@@ -1,6 +1,6 @@
 # @storybook-addons/docs &middot; [![npm (scoped)](https://img.shields.io/npm/v/@storybook-addons/docs.svg)](https://www.npmjs.com/package/@storybook-addons/docs)
 
-Storybook addon for collect your documentation from project and components with the ability to embed [examples](#inline-stories) or [placeholders](#placeholders) in documentation (live [example](https://storybook-addons.now.sh/docs)).
+Documentation layout for official [@storybook/addon-docs](https://github.com/storybookjs/storybook/tree/next/addons/docs) with the ability to embed [examples](#inline-stories) and [placeholders](#placeholders).
 
 <p align="center">
   <img height="500" src="https://user-images.githubusercontent.com/7934638/75613474-3183a600-5b3f-11ea-9fc4-021463781803.png">
@@ -9,78 +9,54 @@ Storybook addon for collect your documentation from project and components with 
 ## Install
 
 ```bash
-npm i -D @storybook-addons/docs
+npm i -D @storybook-addons/docs @storybook/addon-docs
 ```
 
 ## Usage
 
-1. Register this addon in `.storybook/addons.js`:
+1. Add `@storybook/addon-docs` into addons in `main.js` file:
 
 ```js
-// With default configuration.
-import '@storybook-addons/docs/register'
-
-// With custom configuration.
-import { registerWithConfigure } from '@storybook-addons/docs/register-with-configure'
-
-registerWithConfigure({
-  tabTitle: 'Custom tab ttitle',
-})
+module.exports = {
+  addons: ['@storybook/addon-docs'],
+}
 ```
 
-2. Add decorator `withDocs` for your stories:
-
-```js
-import { withDocs } from '@storybook-addons/docs'
-
-storiesOf('ComponentName', module).addDecorator(
-  withDocs({
-    readme: {
-      content: 'readme content',
-      placeholders: {
-        placeholderName: 'value',
-      },
-    },
-  }),
-)
-```
-
-### Register options
-
-| Option   | Description | Default           |
-| -------- | ----------- | ----------------- |
-| tabTitle | Tab title.  | `'Documentation'` |
-
-## Configuration
-
-- Global configuration:
+2. Set `DocsPanel` in `preview.js` file:
 
 ```js
 import { addParameters } from '@storybook/react'
+import { DocsPanel } from '@storybook-addons/docs/dist/components/docs-panel'
 
 addParameters({
-  docsx: {
-    ...
+  docs: {
+    container: DocsPanel,
   },
 })
 ```
 
-- Story configuration:
+3. Add documentation for your story:
 
 ```js
-storiesOf('ComponentName', module)
-  .add('story-id', () => ..., {
-    docsx: {
-      ...
+import documentation from './Component.md'
+
+export default {
+  title: 'Controls/Component',
+  parameters: {
+    docs: {
+      readme: documentation,
     },
-  })
+  },
+}
 ```
 
-### Configuration options
+### Params
 
-| Option           | Description                       | Default |
-| ---------------- | --------------------------------- | ------- |
-| enableNavigation | Show navigation at right sidebar. | `true`  |
+| Option           | Description                                      | Default |
+| ---------------- | ------------------------------------------------ | ------- |
+| enableNavigation | Show navigation at right sidebar                 | `true`  |
+| readme           | Documentation content                            |         |
+| placeholders     | Object with placeholder which should be replaced |         |
 
 ## Markdown syntax
 
@@ -105,13 +81,6 @@ If necessary you can embedded placeholder for example other part of documentatio
 ```markdown
 {{%inject::placeholderName%}}
 ```
-
-## Similar packages
-
-- [@storybook/addon-notes](https://github.com/storybookjs/storybook/tree/master/addons/notes)
-- [@storybook/addon-docs](https://github.com/storybookjs/storybook/tree/next/addons/docs)
-- [storybook-readme](https://github.com/tuchk4/storybook-readme)
-- [react-storybook-addon-chapters](https://github.com/Checkfront/react-storybook-addon-chapters)
 
 ## License
 

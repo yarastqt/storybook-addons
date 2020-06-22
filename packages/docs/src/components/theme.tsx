@@ -8,6 +8,7 @@ export const theme = css`
   --color-bg-warning: #fffae7;
 
   --color-typo-primary: #111;
+  --color-typo-secondary: #767676;
   --color-typo-code: #c41d7f;
 
   --color-link-external: #767676;
