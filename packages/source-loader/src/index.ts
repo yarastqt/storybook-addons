@@ -30,7 +30,10 @@ export default function transform(source: string): string {
   // @ts-ignore (Cannot infer type for `this` in current case).
   const options: any = getOptions(this)
   const storySource = formatSource(source, options.prettier)
-  const ast = parse(storySource, { sourceType: 'module', plugins: ['jsx', 'typescript'] })
+  const ast = parse(storySource, {
+    sourceType: 'module',
+    plugins: ['jsx', 'typescript', 'classProperties'],
+  })
   const locationsMap: Record<string, any> = {}
 
   traverse(ast, {
