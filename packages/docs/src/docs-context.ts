@@ -26,6 +26,7 @@ export type DocsContextProps = {
       enableNavigation?: boolean
       readme?: string | { default: string }
       placeholders?: Record<string, string>
+      props?: any
     }
     storySource: StorySource
   }

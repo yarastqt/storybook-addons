@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState, useRef } from 'react'
 import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
+import createTable from 'markdown-table';
 
 import { Link, processMarkdownHeading } from '../lib/process-markdown-heading'
 import { unescapeMarkdownSpecific } from '../lib/unescape-markdown-specific'
@@ -92,14 +93,37 @@ const initialState = { content: undefined, navigation: [] }
 const kindRef = createNativeRef<any>()
 const stateRef = createNativeRef<any>()
 
+function createPropsTable(props) {
+  const titles = ['Prop', 'Type', 'Default value', 'Description'];
+  const content = Object.entries(props).map(([, prop]) => [
+    prop.name,
+    prop.type.name
+      .replace('|', '\\|')
+      .replace('<', '\\<')
+      .replace('>', '\\>'),
+    prop.defaultValue,
+    prop.description
+    .replace('|', '\\|')
+    .replace('<', '\\<')
+    .replace('>', '\\>'),
+  ])
+
+  return createTable([titles, ...content])
+}
+
 export const DocsPage: FC<DocsPageProps> = ({ context }) => {
   const { kind, parameters } = context
   const isNextKind = kindRef.current !== kind
   const isFirstRender = useRef(isNextKind)
   const [shownSkeleton, setShownSkeleton] = useState(isNextKind)
-  const { enableNavigation = true, readme = '', placeholders } = parameters.docs || {}
+  const { enableNavigation = true, readme = '', placeholders = {}, props = {} } = parameters.docs || {}
   const rawMarkdown = typeof readme === 'string' ? readme : readme.default
 
+  Object.assign(placeholders, {
+    description: props.PopupProps.__docgenInfo.description,
+    PopupProps: createPropsTable(props.PopupProps.__docgenInfo.props)
+  })
+  console.log('========> props', props);
   const [{ content, navigation }, setContent] = useState<DocsPageContent>(
     isNextKind ? initialState : stateRef.current,
   )

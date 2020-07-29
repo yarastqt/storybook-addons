@@ -4,7 +4,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["storybook", "docs", "addon", "documentation"],
+  "keywords": [
+    "storybook",
+    "docs",
+    "addon",
+    "documentation"
+  ],
   "author": "Eugene Tropin <yarastqt@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -27,6 +32,7 @@
     "@storybook/api": "^5.1.9",
     "@storybook/core-events": "^5.1.11",
     "copy-to-clipboard": "^3.2.0",
+    "markdown-table": "2.0.0",
     "prism-react-renderer": "^0.1.7",
     "react-markdown": "^4.1.0"
   },
@@ -36,5 +42,8 @@
   "peerDependencies": {
     "react": "^16.8.6"
   },
-  "files": ["dist", "src"]
+  "files": [
+    "dist",
+    "src"
+  ]
 }
