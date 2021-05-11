@@ -5,7 +5,13 @@
     "access": "public"
   },
   "description": "Source loader for storybook stories",
-  "keywords": ["storybook", "webpack", "source", "loader"],
+  "keywords": [
+    "storybook",
+    "webpack",
+    "source",
+    "loader",
+    "storybook-addon"
+  ],
   "author": "Eugene Tropin <yarastqt@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -14,7 +20,10 @@
   "repository": "https://github.com/yarastqt/storybook-addons",
   "homepage": "https://github.com/yarastqt/storybook-addons/tree/master/packages/source-loader",
   "main": "dist/index.js",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "test": "exit 0",
     "build": "rm -rf dist && tsc",
