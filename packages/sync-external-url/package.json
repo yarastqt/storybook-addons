@@ -4,7 +4,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["storybook", "addon"],
+  "keywords": [
+    "storybook",
+    "addon",
+    "storybook-addon"
+  ],
   "author": "Eugene Tropin <yarastqt@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -33,5 +37,10 @@
   "peerDependencies": {
     "react": "^16.8.6"
   },
-  "files": ["dist", "src", "register.js"]
+  "files": [
+    "dist",
+    "src",
+    "register.js"
+  ],
+  "description": "Sometimes we need to embed storybook on the site and here we face the problem of syncing links between the external site and storybook iframe."
 }
