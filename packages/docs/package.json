@@ -4,7 +4,13 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["storybook", "docs", "addon", "documentation"],
+  "keywords": [
+    "storybook",
+    "docs",
+    "addon",
+    "documentation",
+    "storybook-addon"
+  ],
   "author": "Eugene Tropin <yarastqt@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -36,5 +42,9 @@
   "peerDependencies": {
     "react": "^16.8.6"
   },
-  "files": ["dist", "src"]
+  "files": [
+    "dist",
+    "src"
+  ],
+  "description": "Documentation layout for official [@storybook/addon-docs](https://github.com/storybookjs/storybook/tree/next/addons/docs) with the ability to embed [examples](#inline-stories) and [placeholders](#placeholders)."
 }
